@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BibleLibraryTest</string>
+    <string name="action_settings">Settings</string>
+    <string name="test"><![CDATA[<a href=\'bible://bible.com/Gen/0/2/5\'>Hello World!</a>]]></string>
+</resources>
