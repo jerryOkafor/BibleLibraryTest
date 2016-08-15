@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The first page - normally skipped over
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="25dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="10dp"
+    android:background="@drawable/background_blue_light"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/splash_title_text"
+        style="@style/SplashTitleFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/welcome" />
+
+    <TextView
+        android:id="@+id/splash_top_text"
+        style="@style/SplashTopFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splash_title_text"
+        android:gravity="right"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:text="@string/splash_top_text" />
+
+    <TextView
+        android:id="@+id/splash_help_text"
+        style="@style/HelpFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splash_top_text"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:padding="15dp"
+        android:text="@string/help_text" />
+
+    <TextView
+        android:id="@+id/versionText"
+        style="@style/SplashBottomFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="right"
+        android:padding="5dip" />
+
+    <LinearLayout
+        android:id="@+id/progress_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/versionText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/splash_help_text"
+        android:layout_marginTop="26dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/SplashBottomFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Initialising..."
+            android:gravity="center"
+            android:padding="5dip" />
+
+        <ProgressBar
+            android:id="@+id/init_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>
