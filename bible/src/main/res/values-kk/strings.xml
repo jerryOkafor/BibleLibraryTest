@@ -124,7 +124,7 @@
   <string name="document_not_installed">Жүктеңіз \'%s\'</string>
   <!--Install zip file-->
   <string name="install_zip">Нығыздалған файлдан құжатты жүктеу</string>
-  <string name="install_zip_successfull">Модуль сәтті орнатылды</string>
+  <string name="install_zip_successful">Модуль сәтті орнатылды</string>
   <string name="extracting_zip_file">Нығыздалған файл мұрағатталуда...</string>
   <string name="checking_zip_file">Осы файл тексерілу барысында...</string>
   <string name="invalid_module">Файлдың мазмұнында жарамды SWORD модулі жоқ</string>

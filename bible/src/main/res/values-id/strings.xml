@@ -124,7 +124,7 @@
   <string name="document_not_installed">Silahkan download \'%s\'</string>
   <!--Install zip file-->
   <string name="install_zip">Buka Dokumen dari Zip</string>
-  <string name="install_zip_successfull">Modul telah berhasil diinstal</string>
+  <string name="install_zip_successful">Modul telah berhasil diinstal</string>
   <string name="extracting_zip_file">Keluarkan file dari Zip sekarang...</string>
   <string name="checking_zip_file">Sedang periksa file yang diberikan</string>
   <string name="invalid_module">File tidak berisi modul SWORD yang berlaku</string>

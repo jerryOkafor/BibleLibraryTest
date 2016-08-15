@@ -1,6 +1,5 @@
 package com.bellman.bible.service.common;
 
-
 import org.apache.commons.lang3.StringUtils;
 
 /**

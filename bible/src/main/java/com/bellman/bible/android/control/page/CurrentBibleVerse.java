@@ -1,6 +1,5 @@
 package com.bellman.bible.android.control.page;
 
-
 import com.bellman.bible.android.control.versification.ConvertibleVerse;
 
 import org.crosswire.jsword.passage.Verse;
@@ -33,12 +32,15 @@ public class CurrentBibleVerse {
 	public void setVerseSelected(Versification versification, Verse verseSelected) {
 		verseVersificationSelected.setVerse(versification, verseSelected);
 	}
-	public void setVerseNo(int verseNo) {
-		verseVersificationSelected.setVerseNo(verseNo);
-	}
+
 	public int getVerseNo() {
 		return verseVersificationSelected.getVerseNo();
 	}
+
+	public void setVerseNo(int verseNo) {
+		verseVersificationSelected.setVerseNo(verseNo);
+	}
+
 	public Versification getVersificationOfLastSelectedVerse() {
 		return verseVersificationSelected.getVerse().getVersification();
 	}

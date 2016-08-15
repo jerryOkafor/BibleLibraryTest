@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 import android.text.ClipboardManager;
 import android.util.Log;
 
-import com.bellman.bible.R;
-import com.bellman.bible.android.BibleActivity;
+import com.bellman.bible.android.activity.R;
 import com.bellman.bible.android.control.ControlFactory;
+import com.bellman.bible.android.control.page.window.Window;
 import com.bellman.bible.android.control.versification.Scripture;
-import com.bellman.bible.android.control.window.Window;
-import com.bellman.bible.android.view.CurrentActivityHolder;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
+import com.bellman.bible.android.view.activity.base.Dialogs;
 import com.bellman.bible.service.common.CommonUtils;
 import com.bellman.bible.service.common.TitleSplitter;
 import com.bellman.bible.service.font.FontControl;
@@ -31,8 +31,6 @@ import org.crosswire.jsword.versification.Versification;
 
 import java.util.List;
 
-import app.Bible;
-
 /**
  * SesionFacade for CurrentPage used by View classes
  * @author Martin Denham [mjdenham at gmail dot com]
@@ -51,12 +49,12 @@ public class PageControl {
 		try {
 			Book book = getCurrentPageManager().getCurrentPage().getCurrentDocument();
 
-			String text = verseRange.getName()+"\n"+ SwordContentFacade.getInstance().getCanonicalText(book, verseRange);
-			ClipboardManager clipboard = (ClipboardManager) Bible.getApplication().getSystemService(Activity.CLIPBOARD_SERVICE);
+			String text = verseRange.getName() + "\n" + SwordContentFacade.getInstance().getCanonicalText(book, verseRange);
+			ClipboardManager clipboard = (ClipboardManager) CurrentActivityHolder.getInstance().getApplication().getSystemService(Activity.CLIPBOARD_SERVICE);
 			clipboard.setText(text);
 		} catch (Exception e) {
 			Log.e(TAG, "Error pasting to clipboard", e);
-//			Dialogs.getInstance().showErrorMsg("Error copying to clipboard");
+			Dialogs.getInstance().showErrorMsg("Error copying to clipboard");
 		}
 	}
 
@@ -73,14 +71,14 @@ public class PageControl {
 
 			sendIntent.putExtra(Intent.EXTRA_TEXT, text);
 			// subject is used when user chooses to send verse via e-mail
-			sendIntent.putExtra(Intent.EXTRA_SUBJECT, Bible.getApplication().getText(R.string.share_verse_subject));
+			sendIntent.putExtra(Intent.EXTRA_SUBJECT, CurrentActivityHolder.getInstance().getApplication().getText(R.string.share_verse_subject));
 
 			Activity activity = CurrentActivityHolder.getInstance().getCurrentActivity();
-			activity.startActivity(Intent.createChooser(sendIntent, activity.getString(R.string.share_verse)));
+			activity.startActivity(Intent.createChooser(sendIntent, activity.getString(R.string.share_verse))); 
 			
 		} catch (Exception e) {
 			Log.e(TAG, "Error sharing verse", e);
-//			Dialogs.getInstance().showErrorMsg("Error sharing verse");
+			Dialogs.getInstance().showErrorMsg("Error sharing verse");
 		}
 	}
 	

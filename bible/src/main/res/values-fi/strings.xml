@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!--Startup & Help-->
   <string name="splash_top_text">\n\"Ja Jumala sanoi: \'Tulkoon valkeus\'. Ja valkeus tuli.\"\n1. Moos. 1:3</string>
   <string name="help_text">Siirry VALIKKO painikkeella toimintoihin\n\nSiirry seuraavaan tai edelliseen lukuun pallo- tai D-ohjaimella tai \'pyyhkäisemällä\' näyttöä sormella</string>
   <string name="help_text_long"><b>Navigointi</b>\nSiirry seuraavaan tai edelliseen lukuun pallo- tai D-ohjainta käyttäen tai \'pyyhkäisemällä\' näyttöä sormella.\nNapauta näytön alareunaa vierittääksesi tekstiä alas.\nKaksoisnapautus vaihtaa kokonäyttötilaan tai pois siitä.\n\n<b>Valikko</b>\nSiirry VALIKKO näppäimellä valikon toimintoihin\n\nLataa lisää teoksia siirtymällä Valikkossa kohtaan Ylläpito / Lataa teoksia\n\n<b>Puhe</b>\nPaina Puhu kuunnellaksi luvun puhuttuna tai keskeyttääksesi puheen.\n\n<b>Oma kommentti</b>\nVoit tallentaa omia kommentteja tekstiin \'Omat kommentit\' -kohdasta pikavalikossa. Luetteloon lisätyistä kommenteista pääsee päävalikon kohdasta.\n<b>Kirjanmerkit</b>\nKirjanmerkkejä voi lisätä pikavalikon kautta. Kirjanmerkkien hallintaan voi siirtyä päävalikon kautta, missä voit ryhmitellä kirjanmerkkejä omiin ryhmiinsä.\n\n<b>Etsi</b>\nTekstin etsimisessä voi käyttää jokerimerkkejä kuten *, ?, AND, OR, NOT (ks. \"Apache Lucene - Query Parser Syntax\" merkityksistä)\n\n<b>Pikavalikot</b>\nPitämällä sormea pitkään Raamatun tekstin päällä avautuu tekstivalikko liittyen ylätunnisteessa mainittuun aktiiviseen jakeeseen.\nPitämällä sormea pitkään teosvalitsimella, voit poistaa teoksen tai tarkastella sen tietoja. \nPitämällä sormea pitkään takaisin painikkeella, avatuu historiatiedot luetusta</string>
   <string name="version_text">Versio %s</string>
-  <string name="no_sdcard_error">Ole hyvä ja aseta SD kortti sekä käynnistä And Bible uudelleen.</string>
+  <string name="no_sdcard_error">Ole hyvä ja aseta SD kortti sekä käynnistä Embedded Bible uudelleen.</string>
   <!--Main menu-->
   <string name="chooseBook">Teos</string>
   <string name="selectPassage">Siirry</string>
@@ -124,7 +124,7 @@
   <string name="document_not_installed">Ole hyvä ja lataa \'%s\'</string>
   <!--Install zip file-->
   <string name="install_zip">Lataa teos Zip-tiedostosta</string>
-  <string name="install_zip_successfull">Moduuli asennettiin onnistuneesti</string>
+  <string name="install_zip_successful">Moduuli asennettiin onnistuneesti</string>
   <string name="extracting_zip_file">Puretaan Zip tiedostoa...</string>
   <string name="checking_zip_file">Tarkastetaan tiedostoa...</string>
   <string name="invalid_module">Tiedostossa ei ole kelvollista SWORD moduulia</string>
@@ -153,7 +153,7 @@
   <string name="notes">Alaviitteet ja rinnakkaisviitteet</string>
   <string name="copy">Kopioi</string>
   <string name="share_verse">Jaa ...</string>
-  <string name="share_verse_subject">Raamatun jae on lähetetty And Bible -sovelluksella</string>
+  <string name="share_verse_subject">Raamatun jae on lähetetty Embedded Bible -sovelluksella</string>
   <string name="compare_translations">Vertaile käännöksiä</string>
   <!--Bookmarks-->
   <string name="bookmarks">Kirjanmerkit</string>

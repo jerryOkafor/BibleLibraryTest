@@ -7,7 +7,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * The License is available on the internet at:
+ * The License is available on the intercom.bellman at:
  *       http://www.gnu.org/copyleft/lgpl.html
  * or by writing to:
  *      Free Software Foundation, Inc.

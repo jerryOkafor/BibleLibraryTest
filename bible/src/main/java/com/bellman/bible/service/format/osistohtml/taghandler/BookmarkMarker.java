@@ -1,10 +1,9 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 import org.crosswire.jsword.passage.Verse;
 import org.xml.sax.Attributes;
@@ -20,20 +19,15 @@ import java.util.Set;
  */
 public class BookmarkMarker implements OsisTagHandler {
 
-	private Set<Integer> bookmarkedVerses= new HashSet<Integer>();
-	
-	private OsisToHtmlParameters parameters;
-	
-	private OsisToHtmlSaxHandler.VerseInfo verseInfo;
-	
-	private HtmlTextWriter writer;
-	
-	private boolean bookmarkOpenTagWritten = false;
-	
 	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("BookmarkMarker");
+	private Set<Integer> bookmarkedVerses= new HashSet<Integer>();
+	private OsisToHtmlParameters parameters;
+	private VerseInfo verseInfo;
+	private HtmlTextWriter writer;
+	private boolean bookmarkOpenTagWritten = false;
 
-	public BookmarkMarker(OsisToHtmlParameters parameters, OsisToHtmlSaxHandler.VerseInfo verseInfo, HtmlTextWriter writer) {
+	public BookmarkMarker(OsisToHtmlParameters parameters, VerseInfo verseInfo, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.verseInfo = verseInfo;
 		this.writer = writer;

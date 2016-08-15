@@ -1,13 +1,6 @@
 package com.bellman.bible.service.format.osistohtml.strongs;
 
-//import net.bible.service.common.Constants.HTML;
-//import net.bible.service.format.osistohtml.HtmlTextWriter;
-//import net.bible.service.format.osistohtml.OsisToHtmlParameters;
-//import net.bible.service.format.osistohtml.taghandler.OsisTagHandler;
-//import net.bible.service.format.osistohtml.taghandler.TagHandlerHelper;
-//
-//import org.apache.commons.lang.StringUtils;
-import com.bellman.bible.service.common.Constants;
+import com.bellman.bible.service.common.Constants.HTML;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
 import com.bellman.bible.service.format.osistohtml.taghandler.OsisTagHandler;
@@ -41,11 +34,9 @@ import java.util.List;
  */
 public class StrongsHandler implements OsisTagHandler {
 
-	private HtmlTextWriter writer;
-	
-	private OsisToHtmlParameters parameters;
-	
 	List<String> pendingStrongsAndMorphTags;
+	private HtmlTextWriter writer;
+	private OsisToHtmlParameters parameters;
 
 	public StrongsHandler(OsisToHtmlParameters parameters, HtmlTextWriter writer) {
 		this.parameters = parameters;
@@ -81,10 +72,10 @@ public class StrongsHandler implements OsisTagHandler {
 		if ((parameters.isShowStrongs() || parameters.isShowMorphology())) {
 			if (pendingStrongsAndMorphTags != null) {
 				for (int i = 0; i < pendingStrongsAndMorphTags.size(); i++) {
-					writer.write(Constants.HTML.SPACE); // separator between adjacent tags and words
+					writer.write(HTML.SPACE); // separator between adjacent tags and words
 					writer.write(pendingStrongsAndMorphTags.get(i));
 				}
-				writer.write(Constants.HTML.SPACE); // separator between adjacent tags and words
+				writer.write(HTML.SPACE); // separator between adjacent tags and words
 				pendingStrongsAndMorphTags = null;
 			}
 		}

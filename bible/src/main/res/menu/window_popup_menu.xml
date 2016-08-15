@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The main menu accessed via Menu key
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/windowNew"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/new_item" />
+    <item
+        android:id="@+id/windowMaximise"
+        android:checkable="true"
+        android:checked="false"
+        android:icon="@drawable/ic_menu_maximise"
+        android:title="@string/windowMaximise" />
+    <item
+        android:id="@+id/windowMinimise"
+        android:icon="@drawable/ic_menu_minimise"
+        android:title="@string/windowMinimise" />
+    <item
+        android:id="@+id/windowClose"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="@string/windowClose" />
+    <item
+        android:id="@+id/windowSynchronise"
+        android:checkable="true"
+        android:checked="true"
+        android:icon="@android:drawable/ic_media_pause"
+        android:title="@string/windowSynchronise" />
+    <item
+        android:id="@+id/windowMoveFirst"
+        android:icon="@android:drawable/arrow_up_float"
+        android:title="@string/windowMoveFirst" />
+</menu>

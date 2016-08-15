@@ -1,6 +1,5 @@
 package com.bellman.bible.service.download;
 
-
 import com.bellman.bible.service.sword.AcceptableBookTypeFilter;
 
 import org.crosswire.jsword.book.Book;
@@ -19,12 +18,9 @@ public class AndBibleRepo extends RepoBase {
 
 	// see here for info ftp://ftp.xiphos.org/mods.d/
 	private static final String REPOSITORY = "AndBible";
-	
-	private static BookFilter SUPPORTED_DOCUMENTS = new AcceptableBookTypeFilter();
-	
 	@SuppressWarnings("unused")
 	private static final String TAG = "AndBibleRepo";
-	
+	private static BookFilter SUPPORTED_DOCUMENTS = new AcceptableBookTypeFilter();
 	
 	/** get a list of books that are available in AndBible repo
 	 */

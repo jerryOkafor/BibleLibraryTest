@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!--Startup & Help-->
   <string name="splash_top_text">\n\"I řekl Bůh: Budiž světlo! A bylo světlo.\"\nGenesis 1:3</string>
   <string name="help_text">Akce lze vyvolávat z klávesy MENU\n\nNa další nebo předchozí kapitolu lze přejít track-ballem, D-padem nebo posuvem prstu doleva nebo doprava</string>
   <string name="help_text_long"><b>Navigace</b>\nNa další nebo předchozí kapitolu lze přejít track-ballem, D-padem nebo posuvem prstu dolevo nebo doprava.\nDvojdotykem lze zapnout/vypnout režimm celé obrazovky.\n\n<b>Menu</b>\nAkce lze vyvolávat z klávesou MENU \n\nVíce dokumentů je možno stáhnou stisknutím Menu/Správa/Stáhnout dokumenty \n\n<b>Mluvení</b>\nStisknutím Mluvení se přistupuje k dialogu pro zapnutí nebo vypnutí čtení\n\n<b>Poznámky</b>\nPoznámky lze přidat z kontextového menu verše. Správce poznámek je přístupný z hlavního menu. Kontextové menu správce poznámek umožňuje třídění poznámek. Ke skupinán se přiřazují popisky.\n\n<b>Záložky</b>\nZáložky lze přidat z kontextového menu verše. Správce záložek je přístupný z hlavního menu. Kontextové menu správce záložek umožňuje třídění záložek do skupin. Ke skupinám se přiřazují popisky.\n\n<b>Hledání</b>\nText pro vyhledávání může zahrnovat speciální znaky jako *, ?, AND, OR, NOT (podrobnosti viz \\"Apache Lucene - Query Parser Syntax\\")\n\n<b>Kontextová menu</b>\nDlouhý stisk v náhledu Bible vyvolá kontextové menu s akcemi, ovlivňující současný verš. \nDlouhým stiskem v okně pro výběr dokumentu lze dokument odstranit nebo o něm zobrazit informace.\nDlouhým stiskem tlačítka Zpět je možno přistupovat k seznamu s historií.</string>
   <string name="version_text">Verze %s</string>
-  <string name="no_sdcard_error">Prosím vložte SD kartu a spusťte And Bible znovu.</string>
+  <string name="no_sdcard_error">Prosím vložte SD kartu a spusťte Embedded Bible znovu.</string>
   <!--Main menu-->
   <string name="chooseBook">Dokument</string>
   <string name="selectPassage">Pasáž</string>
@@ -124,7 +124,7 @@
   <string name="document_not_installed">Prosím stáhněte \'%s\'</string>
   <!--Install zip file-->
   <string name="install_zip">Načíst dokument ze Zip</string>
-  <string name="install_zip_successfull">Modul byl úspěšně nainstalován</string>
+  <string name="install_zip_successful">Modul byl úspěšně nainstalován</string>
   <string name="extracting_zip_file">Rozbaluji Zip soubor...</string>
   <string name="checking_zip_file">Ověřuji zadaný soubor...</string>
   <string name="invalid_module">Soubor neobsahuje platný modul SWORD</string>
@@ -153,7 +153,7 @@
   <string name="notes">Poznámky a odkazy</string>
   <string name="copy">Kopírovat</string>
   <string name="share_verse">Sdílet …</string>
-  <string name="share_verse_subject">Biblický verš zaslán z aplikace And Bible</string>
+  <string name="share_verse_subject">Biblický verš zaslán z aplikace Embedded Bible</string>
   <string name="compare_translations">Porovnat překlady</string>
   <!--Bookmarks-->
   <string name="bookmarks">Záložky</string>

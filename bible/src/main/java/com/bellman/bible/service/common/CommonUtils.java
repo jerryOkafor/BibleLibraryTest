@@ -13,7 +13,8 @@ import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 
 import com.bellman.bible.android.control.ControlFactory;
-import com.bellman.bible.android.control.window.Window;
+import com.bellman.bible.android.control.page.window.Window;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -34,8 +35,6 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
-
-import app.Bible;
 
 /**
  * @author Martin Denham [mjdenham at gmail dot com]
@@ -71,11 +70,10 @@ public class CommonUtils {
 		String versionName = null;
 		try
         {
-            PackageManager manager = Bible.getApplication().getPackageManager();
-            PackageInfo info = manager.getPackageInfo(Bible.getApplication().getPackageName(), 0);
-            versionName = info.versionName;
-        }
-        catch ( final NameNotFoundException e )
+			PackageManager manager = CurrentActivityHolder.getInstance().getApplication().getPackageManager();
+			PackageInfo info = manager.getPackageInfo(CurrentActivityHolder.getInstance().getApplication().getPackageName(), 0);
+			versionName = info.versionName;
+		} catch ( final NameNotFoundException e )
         {
             Log.e(TAG, "Error getting package name.", e);
             versionName = "Error";
@@ -86,11 +84,10 @@ public class CommonUtils {
 		int versionNumber;
 		try
         {
-            PackageManager manager = Bible.getApplication().getPackageManager();
-            PackageInfo info = manager.getPackageInfo(Bible.getApplication().getPackageName(), 0);
-            versionNumber = info.versionCode;
-        }
-        catch ( final NameNotFoundException e )
+			PackageManager manager = CurrentActivityHolder.getInstance().getApplication().getPackageManager();
+			PackageInfo info = manager.getPackageInfo(CurrentActivityHolder.getInstance().getApplication().getPackageName(), 0);
+			versionNumber = info.versionCode;
+		} catch ( final NameNotFoundException e )
         {
             Log.e(TAG, "Error getting package name.", e);
             versionNumber = -1;
@@ -222,8 +219,8 @@ public class CommonUtils {
 			    		}
 			    	}
 				}
-			};
-			
+			}
+
 			CheckUrlThread checkThread = new CheckUrlThread();
 			checkThread.start();
 			checkThread.join(TIMEOUT_MILLIS);
@@ -291,8 +288,8 @@ public class CommonUtils {
     }
     
     public static boolean isPortrait() {
-    	return Bible.getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-    }
+		return CurrentActivityHolder.getInstance().getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+	}
 
     public static String getLocalePref() {
     	return getSharedPreferences().getString("locale_pref", "");
@@ -303,7 +300,7 @@ public class CommonUtils {
 	 * @return
 	 */
 	public static SharedPreferences getSharedPreferences() {
-		return PreferenceManager.getDefaultSharedPreferences(Bible.getApplication().getApplicationContext());
+		return PreferenceManager.getDefaultSharedPreferences(CurrentActivityHolder.getInstance().getContext());
 	}
 
 	public static String getSharedPreference(String key, String defaultValue) {
@@ -317,26 +314,26 @@ public class CommonUtils {
 	}
 	
 	public static String getResourceString(int resourceId, Object... formatArgs) {
-		return Bible.getApplication().getResources().getString(resourceId, formatArgs);
+		return CurrentActivityHolder.getInstance().getApplication().getResources().getString(resourceId, formatArgs);
 	}
 
 	public static int getResourceInteger(int resourceId) {
-		return Bible.getApplication().getResources().getInteger(resourceId);
+		return CurrentActivityHolder.getInstance().getApplication().getResources().getInteger(resourceId);
 	}
 	
 	public static boolean getResourceBoolean(int resourceId) {
-		return Bible.getApplication().getResources().getBoolean(resourceId);
+		return CurrentActivityHolder.getInstance().getApplication().getResources().getBoolean(resourceId);
 	}
 
 	public static int getResourceColor(int resourceId) {
-		return Bible.getApplication().getResources().getColor(resourceId);
+		return CurrentActivityHolder.getInstance().getApplication().getResources().getColor(resourceId);
 	}
 	/**
 	 * convert dip measurements to pixels
 	 */
 	public static int convertDipsToPx(int dips) {
 		// Converts 14 dip into its equivalent px
-		float scale = Bible.getApplication().getResources().getDisplayMetrics().density;
+		float scale = CurrentActivityHolder.getInstance().getApplication().getResources().getDisplayMetrics().density;
 		return (int) ( dips * scale + 0.5f );
 	}
 	
@@ -344,7 +341,7 @@ public class CommonUtils {
 	 * convert dip measurements to pixels
 	 */
 	public static int convertPxToDips(int px) {
-		float scale = Bible.getApplication().getResources().getDisplayMetrics().density;
+		float scale = CurrentActivityHolder.getInstance().getApplication().getResources().getDisplayMetrics().density;
 		return Math.round(px/scale);
 	}
 

@@ -1,8 +1,7 @@
 package com.bellman.bible.service.format.osistohtml;
 
-
 import com.bellman.bible.service.common.Logger;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 /**
  * Write characters out to a StringBuilder - used while creating html for display
@@ -13,21 +12,16 @@ import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHan
  */
 public class HtmlTextWriter {
 
-    private StringBuilder writer;
-    
-    private int dontWriteRequestCount = 0;
-    
-    private int writeTempStoreRequestCount = 0;
+	@SuppressWarnings("unused")
+	private static final Logger log = new Logger("HtmlTextWriter");
+	private StringBuilder writer;
+	private int dontWriteRequestCount = 0;
+	private int writeTempStoreRequestCount = 0;
     private StringBuilder tempStore = new StringBuilder();
-
     // Prevent multiple conflicting preverse attempts
     private int insertionRequestCount = 0;
-    
     // allow insert at a certain position
     private String overwrittenString = "";
-    
-    @SuppressWarnings("unused")
-    private static final Logger log = new Logger("HtmlTextWriter");
     
     public HtmlTextWriter() {
         writer = new StringBuilder();
@@ -45,7 +39,7 @@ public class HtmlTextWriter {
     
 	/** allow line breaks and titles to be moved before verse number
 	 */
-	public void writeOptionallyBeforeVerse(String s, OsisToHtmlSaxHandler.VerseInfo verseInfo) {
+	public void writeOptionallyBeforeVerse(String s, VerseInfo verseInfo) {
 		boolean writeBeforeVerse = !verseInfo.isTextSinceVerse;
 		if (writeBeforeVerse) {
 			beginInsertAt(verseInfo.positionToInsertBeforeVerse);

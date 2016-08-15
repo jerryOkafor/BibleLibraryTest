@@ -3,11 +3,10 @@ package com.bellman.bible.android.control.page;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
-import com.bellman.bible.R;
-import com.bellman.bible.SharedConstants;
-import com.bellman.bible.android.control.window.Window;
+import com.bellman.bible.android.activity.R;
+import com.bellman.bible.android.control.page.window.Window;
 import com.bellman.bible.service.format.HtmlMessageFormatter;
+import com.bellman.bible.util.SharedConstants;
 
 import org.crosswire.jsword.book.Book;
 import org.crosswire.jsword.passage.Key;
@@ -19,11 +18,10 @@ import org.crosswire.jsword.passage.Key;
  */
 abstract public class UpdateTextTask extends AsyncTask<Window, Integer, String> {
 
+	private static final String TAG = "UpdateTextTask";
 	private Window window;
 	private int verseNo = SharedConstants.NO_VALUE;
 	private float yScreenOffsetRatio = SharedConstants.NO_VALUE;
-	
-	private static final String TAG = "UpdateTextTask";
 	
     /** callbacks from base class when result is ready */
 	abstract protected void showText(String text, Window screenToUpdate, int verseNo, float yOffsetRatio);

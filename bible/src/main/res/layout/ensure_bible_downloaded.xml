@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Generate a Lucene search index for a document
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/waitForBible"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        android:text="@string/wait_for_bible"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:id="@+id/progressControlContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/waitForBible"
+        android:layout_margin="20dip"
+        android:orientation="vertical"></LinearLayout>
+
+    <TextView
+        android:id="@+id/waitForBibleNotYet"
+        android:layout_width="fill_parent"
+        android:layout_height="110dip"
+        android:layout_below="@+id/progressControlContainer"
+        android:layout_margin="20dip" />
+
+</RelativeLayout>

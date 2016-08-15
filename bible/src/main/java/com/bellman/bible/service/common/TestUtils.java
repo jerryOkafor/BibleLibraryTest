@@ -11,13 +11,13 @@ public class TestUtils {
 	private static boolean isAndroidCheckDone;
 	
 	/** return true id running in an Android vm
-	 * 
-	 * @return
+	 *
+	 * @return boolean
 	 */
 	public static boolean isAndroid() {
 		if (!isAndroidCheckDone) {
 			try {
-				Class.forName("net.bible.test.TestEnvironmentFlag");
+				Class.forName("com.bellman.bible.test.TestEnvironmentFlag");
 				isAndroid = false;
 				System.out.println("Running as test");
 			} catch (ClassNotFoundException cnfe) {

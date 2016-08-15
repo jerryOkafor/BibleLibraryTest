@@ -6,7 +6,7 @@
       The copyright to this program is held by it's author.
 -->
 <resources>
-    <string name="app_name">And Bible - Bíblian - Android stýriskipan</string>
+    <string name="app_name">Embedded Bible - Bíblian - Android stýriskipan</string>
 
     <string name="splash_top_text">\n\"Gud segði: "Verði ljós!" Og ljós varð.\"\n1 Mósebók 1:3</string>
     <string name="help_text">Trýst á VALMYND knøttin fyri at velja\n\nFar til næsta ella undanfarna kapittul við at brúka \'track-ball\', \'D-pad\' ella draga ein fingur eftir skerminum\n\nTrýst á \'Upplestur\' fyri at fáa listið kapittulin</string>
@@ -17,7 +17,7 @@
     \nTrýst longi á eitt skjal í fíluskránni fyri at strika tað ella síggja innihaldið.
     \n\nBookmarks\nBókamerkir kunnu verða løgd afturat við versinnihaldsvalmyndini.  Atgongd er til umsitingina av bókamerkjum gjøgnum høvuðsvalmyndina.  Bókamerkjavalmyndin gevur møguleika at flokka bókamerki við at nýta merkir.</string>
     <string name="version_text">Versión %s</string>
-    <string name="no_sdcard_error">Gerið so væl og innsetið eitt SD-kort og starta And Bible umaftur.</string>
+    <string name="no_sdcard_error">Gerið so væl og innsetið eitt SD-kort og starta Embedded Bible umaftur.</string>
     <!-- main menu -->
     <string name="chooseBook">Skjal</string>
     <string name="selectPassage">Brot</string>

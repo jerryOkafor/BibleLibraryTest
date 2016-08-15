@@ -3,11 +3,12 @@ package com.bellman.bible.android.control.page;
 import android.content.Context;
 import android.content.Intent;
 
-import com.bellman.bible.SharedConstants;
 import com.bellman.bible.android.control.ControlFactory;
 import com.bellman.bible.android.control.PassageChangeMediator;
 import com.bellman.bible.android.control.versification.BibleTraverser;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
 import com.bellman.bible.service.common.Logger;
+import com.bellman.bible.util.SharedConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.Book;
@@ -23,18 +24,16 @@ import org.json.JSONObject;
  *      The copyright to this program is held by it's author.
  */
 public class CurrentPageManager {
-	// use the same verse in the commentary and bible to keep them in sync
+	private final Logger logger = new Logger(this.getClass().getName());
+	// use the same verse in the commentary Embedded Bible to keep them in sync
 	private CurrentBibleVerse currentBibleVerse;
 	private CurrentBiblePage currentBiblePage;
-//	private CurrentCommentaryPage currentCommentaryPage;
-//	private CurrentDictionaryPage currentDictionaryPage;
-//	private CurrentGeneralBookPage currentGeneralBookPage;
-//	private CurrentMapPage currentMapPage;
-//	private CurrentMyNotePage currentMyNotePage;
-	
+	private CurrentCommentaryPage currentCommentaryPage;
+	private CurrentDictionaryPage currentDictionaryPage;
+	private CurrentGeneralBookPage currentGeneralBookPage;
+	private CurrentMapPage currentMapPage;
+	private CurrentMyNotePage currentMyNotePage;
 	private CurrentPage currentDisplayedPage;
-	
-	private final Logger logger = new Logger(this.getClass().getName());
 	
 	public CurrentPageManager() {
 		currentBibleVerse = new CurrentBibleVerse();
@@ -42,13 +41,13 @@ public class CurrentPageManager {
 		ControlFactory controlFactory = ControlFactory.getInstance();
 		BibleTraverser bibleTraverser = controlFactory.getBibleTraverser();
 		currentBiblePage.setBibleTraverser(bibleTraverser);
-//		currentCommentaryPage = new CurrentCommentaryPage(currentBibleVerse);
-//		currentCommentaryPage.setBibleTraverser(bibleTraverser);
-//		currentMyNotePage = new CurrentMyNotePage(currentBibleVerse);
-//
-//		currentDictionaryPage = new CurrentDictionaryPage();
-//		currentGeneralBookPage = new CurrentGeneralBookPage();
-//		currentMapPage = new CurrentMapPage();
+		currentCommentaryPage = new CurrentCommentaryPage(currentBibleVerse);
+		currentCommentaryPage.setBibleTraverser(bibleTraverser);
+		currentMyNotePage = new CurrentMyNotePage(currentBibleVerse);
+
+		currentDictionaryPage = new CurrentDictionaryPage();
+		currentGeneralBookPage = new CurrentGeneralBookPage();
+		currentMapPage = new CurrentMapPage();
 		
 		currentDisplayedPage = currentBiblePage;
 	}
@@ -59,21 +58,26 @@ public class CurrentPageManager {
 	public CurrentBiblePage getCurrentBible() {
 		return currentBiblePage;
 	}
-//	public CurrentCommentaryPage getCurrentCommentary() {
-//		return currentCommentaryPage;
-//	}
-//	public CurrentDictionaryPage getCurrentDictionary() {
-//		return currentDictionaryPage;
-//	}
-//	public CurrentGeneralBookPage getCurrentGeneralBook() {
-//		return currentGeneralBookPage;
-//	}
-//	public CurrentMapPage getCurrentMap() {
-//		return currentMapPage;
-//	}
-//	public CurrentMyNotePage getCurrentMyNotePage() {
-//		return currentMyNotePage;
-//	}
+
+	public CurrentCommentaryPage getCurrentCommentary() {
+		return currentCommentaryPage;
+	}
+
+	public CurrentDictionaryPage getCurrentDictionary() {
+		return currentDictionaryPage;
+	}
+
+	public CurrentGeneralBookPage getCurrentGeneralBook() {
+		return currentGeneralBookPage;
+	}
+
+	public CurrentMapPage getCurrentMap() {
+		return currentMapPage;
+	}
+
+	public CurrentMyNotePage getCurrentMyNotePage() {
+		return currentMyNotePage;
+	}
 
 	/** 
 	 * When navigating books and chapters there should always be a current Passage based book
@@ -87,8 +91,7 @@ public class CurrentPageManager {
 	 */
 	public VersePage getCurrentVersePage() {
 		VersePage page;
-		if (isBibleShown()) {
-//		if (isBibleShown() || isCommentaryShown()) {
+		if (isBibleShown() || isCommentaryShown()) {
 			page = (VersePage)getCurrentPage();
 		} else {
 			page = getCurrentBible();
@@ -118,10 +121,10 @@ public class CurrentPageManager {
 			if (nextPage.getKey()!=null && (nextPage.isShareKeyBetweenDocs() || sameDoc || nextDocument.contains(nextPage.getKey()))) {
 				PassageChangeMediator.getInstance().onCurrentPageChanged();
 			} else {
-//				Context context = CurrentActivityHolder.getInstance().getCurrentActivity();
-//				// pop up a key selection screen
-//		    	Intent intent = new Intent(context, nextPage.getKeyChooserActivity());
-//		    	context.startActivity(intent);
+				Context context = CurrentActivityHolder.getInstance().getCurrentActivity();
+				// pop up a key selection screen
+				Intent intent = new Intent(context, nextPage.getKeyChooserActivity());
+				context.startActivity(intent);
 			}
 		} else {
 			// should never get here because a doc should always be passed in but I have seen errors lie this once or twice
@@ -136,7 +139,7 @@ public class CurrentPageManager {
 	 * @param verseRange VerseRange to add note to, start verse is the significant key searched for but range is stored
 	 */
 	public void showMyNote(Key verseRange) {
-//		setCurrentDocumentAndKey(currentMyNotePage.getCurrentDocument(), verseRange);
+		setCurrentDocumentAndKey(currentMyNotePage.getCurrentDocument(), verseRange);
 	}
 
 	public CurrentPage setCurrentDocumentAndKey(Book currentBook, Key key) {
@@ -167,8 +170,8 @@ public class CurrentPageManager {
 		// book should never be null but it happened on one user's phone
 		if (book==null) {
 			return null;
-//		} else if (book.equals(currentMyNotePage.getCurrentDocument())) {
-//			return currentMyNotePage;
+		} else if (book.equals(currentMyNotePage.getCurrentDocument())) {
+			return currentMyNotePage;
 		} else {
 			return getBookPage(book.getBookCategory());
 		}
@@ -180,38 +183,41 @@ public class CurrentPageManager {
 		if (bookCategory.equals(BookCategory.BIBLE)) {
 			bookPage = currentBiblePage;
 		} else if (bookCategory.equals(BookCategory.COMMENTARY)) {
-//			bookPage = currentCommentaryPage;
-//		} else if (bookCategory.equals(BookCategory.DICTIONARY)) {
-//			bookPage = currentDictionaryPage;
-//		} else if (bookCategory.equals(BookCategory.GENERAL_BOOK)) {
-//			bookPage = currentGeneralBookPage;
-//		} else if (bookCategory.equals(BookCategory.MAPS)) {
-//			bookPage = currentMapPage;
-//		} else if (bookCategory.equals(BookCategory.OTHER)) {
-//			bookPage = currentMyNotePage;
+			bookPage = currentCommentaryPage;
+		} else if (bookCategory.equals(BookCategory.DICTIONARY)) {
+			bookPage = currentDictionaryPage;
+		} else if (bookCategory.equals(BookCategory.GENERAL_BOOK)) {
+			bookPage = currentGeneralBookPage;
+		} else if (bookCategory.equals(BookCategory.MAPS)) {
+			bookPage = currentMapPage;
+		} else if (bookCategory.equals(BookCategory.OTHER)) {
+			bookPage = currentMyNotePage;
 		}
 		return bookPage;
 	}
 
-//	public boolean isCommentaryShown() {
-//		return currentCommentaryPage == currentDisplayedPage;
-//	}
+	public boolean isCommentaryShown() {
+		return currentCommentaryPage == currentDisplayedPage;
+	}
 	public boolean isBibleShown() {
 		return currentBiblePage == currentDisplayedPage;
 	}
 
-//	public boolean isDictionaryShown() {
-//		return currentDictionaryPage == currentDisplayedPage;
-//	}
-//	public boolean isGenBookShown() {
-//		return currentGeneralBookPage == currentDisplayedPage;
-//	}
-//	public boolean isMyNoteShown() {
-//		return currentMyNotePage == currentDisplayedPage;
-//	}
-//	public boolean isMapShown() {
-//		return currentMapPage == currentDisplayedPage;
-//	}
+	public boolean isDictionaryShown() {
+		return currentDictionaryPage == currentDisplayedPage;
+	}
+
+	public boolean isGenBookShown() {
+		return currentGeneralBookPage == currentDisplayedPage;
+	}
+
+	public boolean isMyNoteShown() {
+		return currentMyNotePage == currentDisplayedPage;
+	}
+
+	public boolean isMapShown() {
+		return currentMapPage == currentDisplayedPage;
+	}
 	public void showBible() {
 		PassageChangeMediator.getInstance().onBeforeCurrentPageChanged();
 		currentDisplayedPage = currentBiblePage;
@@ -222,10 +228,10 @@ public class CurrentPageManager {
 		JSONObject object = new JSONObject();
 		try {
 			object.put("biblePage", currentBiblePage.getStateJson())
-//				.put("commentaryPage", currentCommentaryPage.getStateJson())
-//				.put("dictionaryPage", currentDictionaryPage.getStateJson())
-//				.put("generalBookPage", currentGeneralBookPage.getStateJson())
-//				.put("mapPage", currentMapPage.getStateJson())
+					.put("commentaryPage", currentCommentaryPage.getStateJson())
+					.put("dictionaryPage", currentDictionaryPage.getStateJson())
+					.put("generalBookPage", currentGeneralBookPage.getStateJson())
+					.put("mapPage", currentMapPage.getStateJson())
 				.put("currentPageCategory", currentDisplayedPage.getBookCategory().getName());
 		} catch (Exception e) {
 			logger.warn("Page manager get state error");
@@ -236,10 +242,10 @@ public class CurrentPageManager {
 	public void restoreState(JSONObject jsonObject) {
 		try {
 			currentBiblePage.restoreState(jsonObject.getJSONObject("biblePage"));
-//			currentCommentaryPage.restoreState(jsonObject.getJSONObject("commentaryPage"));
-//			currentDictionaryPage.restoreState(jsonObject.getJSONObject("dictionaryPage"));
-//			currentGeneralBookPage.restoreState(jsonObject.getJSONObject("generalBookPage"));
-//			currentMapPage.restoreState(jsonObject.getJSONObject("mapPage"));
+			currentCommentaryPage.restoreState(jsonObject.getJSONObject("commentaryPage"));
+			currentDictionaryPage.restoreState(jsonObject.getJSONObject("dictionaryPage"));
+			currentGeneralBookPage.restoreState(jsonObject.getJSONObject("generalBookPage"));
+			currentMapPage.restoreState(jsonObject.getJSONObject("mapPage"));
 
 			String restoredPageCategoryName = jsonObject.getString("currentPageCategory");
 			if (StringUtils.isNotEmpty(restoredPageCategoryName)) {

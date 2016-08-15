@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView testTv = (TextView) findViewById(R.id.test);
-        testTv.setText(Html.fromHtml("<a href='bible://bible.com/Gen/0/2/5'>Hello World!</a>"));
+        testTv.setText(Html.fromHtml("<a href='bible://bible.get/Rev/2/5'>Rev 2:5</a>"));
         testTv.setMovementMethod(LinkMovementMethod.getInstance());
 
     }

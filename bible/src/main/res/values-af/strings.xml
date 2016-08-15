@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!--Startup & Help-->
   <string name="splash_top_text">\nGénesis 1:3\n\"En God het gesê: Laat daar lig wees, en daar was lig.\"\n \n</string>
   <string name="help_text">Druk die sleutel Menu vir optrede\n\nGaan na die volgende of vorige hoofstuk deur die spoor-bal, D-pad of om jou vinger oor die skerm te beweeg</string>
   <string name="help_text_long"><b>Navigasie</b>\nGaan na die volgende of vorige hoofstuk met behulp van die spoor-bal, D-pad of beweeg oor die skerm met jou vinger\nDubbel druk verander Vol skerm aan/af.\n\n<b>Keurlys</b>\nDruk Menu sleutel vir meer aksies\n\nOm meer dokumente af te laai druk Menu/Administrasie/Laai Dokumente af.\n\n<b>Spraak</b>\nDruk op praat om \'n dialoog te begin of om op te hou lees.\n\n<b>My Notas</b>\nNotas kan bygevoeg word via My Note keurlys item op die vers konteks kieslys.\nDie lys van bestaande notas kan verkry word via die hoof keurlys\n\n\n<b>Boekmerke</b>\nBoekmerke kan toegevoeg word deur middel van die inhoud keurlys. Die Boekmerk Bestuurder kan deur middel van die hoof keurlys bereik word.\nDie Boekmerk Bestuurder inhoud keurlys laat boekmerke gegroepeer word deur om etikette te gebruik.\n\n<b>Soek</b>\nSoek teks kan spesiale karakters insluit soos *, ?, AND, OR, Not (sien \"Apache Lucene - Qury Parser Syntax\" vir meer inligting)\n\n<b>Inhoud Keurlys</b>\nDruk lank op die Bybel uitsig om die inhoud keurlys oop te maak vir aksies wat die huidige vers affekteer\nDruk lank op \'n dokument in die dokument kieser, om dit uit te wis of om sy informasie te sien\nDruk lank op die Terug knoppie om toegang tot die Geskiedenis lys te kry</string>
   <string name="version_text">Weergawe %s</string>
-  <string name="no_sdcard_error">Plaas asseblief \'n SD kaart in en begin And Bible weer.</string>
+  <string name="no_sdcard_error">Plaas asseblief \'n SD kaart in en begin Embedded Bible weer.</string>
   <!--Main menu-->
   <string name="chooseBook">Dokument</string>
   <string name="selectPassage">Teks</string>
@@ -33,7 +33,7 @@
   <string name="index_create">Skep</string>
   <!--Tasks-->
   <string name="progress_status">Vordering</string>
-  <string name="task_kill_warning">As And Bible lank oop is, mag hy gestop word as jy oorskakel na \'n ander program voordat And Bible klaar is.</string>
+  <string name="task_kill_warning">As Embedded Bible lank oop is, mag hy gestop word as jy oorskakel na \'n ander program voordat Embedded Bible klaar is.</string>
   <string name="no_tasks_running">Daar is geen take wat tans uitgevoer word nie.</string>
   <!--Search-->
   <string name="search_results">Soek Resultate</string>
@@ -124,7 +124,7 @@
   <string name="document_not_installed">Laai \'%s\' asseblief af</string>
   <!--Install zip file-->
   <string name="install_zip">Laai dokument van Zip </string>
-  <string name="install_zip_successfull">Module is suksesvol geïnstalleer</string>
+  <string name="install_zip_successful">Module is suksesvol geïnstalleer</string>
   <string name="extracting_zip_file">Onttrek Zip lêer nou ...</string>
   <string name="checking_zip_file">Nagaan van gegewe lêer ...</string>
   <string name="invalid_module">Lêer nie \'n geldige SWORD module nie</string>
@@ -153,7 +153,7 @@
   <string name="notes">Voetnotas en verwysings</string>
   <string name="copy">kopieër</string>
   <string name="share_verse">Deel …</string>
-  <string name="share_verse_subject">\'n Bybelvers is gedeel met jou met And Bible Program</string>
+  <string name="share_verse_subject">\'n Bybelvers is gedeel met jou met Embedded Bible Program</string>
   <string name="compare_translations">Vergelyk vertalings</string>
   <!--Bookmarks-->
   <string name="bookmarks">Boekmerke</string>

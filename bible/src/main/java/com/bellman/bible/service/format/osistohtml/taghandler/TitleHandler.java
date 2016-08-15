@@ -3,7 +3,7 @@ package com.bellman.bible.service.format.osistohtml.taghandler;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.OSISUtil;
@@ -25,21 +25,16 @@ import java.util.Locale;
  */
 public class TitleHandler implements OsisTagHandler {
 
-	private HtmlTextWriter writer;
-	
-	private OsisToHtmlSaxHandler.VerseInfo verseInfo;
-	
-	private OsisToHtmlParameters parameters;
-	
-	private boolean isShowTitle;
-	
-	private boolean isMoveBeforeVerse;
 	private static final String PREVERSE = "preverse"; // the full string is 'x-preverse' but we just check for contains for extra tolerance
-	
 	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("TitleHandler");
+	private HtmlTextWriter writer;
+	private VerseInfo verseInfo;
+	private OsisToHtmlParameters parameters;
+	private boolean isShowTitle;
+	private boolean isMoveBeforeVerse;
 
-	public TitleHandler(OsisToHtmlParameters parameters, OsisToHtmlSaxHandler.VerseInfo verseInfo, HtmlTextWriter writer) {
+	public TitleHandler(OsisToHtmlParameters parameters, VerseInfo verseInfo, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.verseInfo = verseInfo;
 		this.writer = writer;
@@ -52,7 +47,7 @@ public class TitleHandler implements OsisTagHandler {
 
 	@Override
 	public void start(Attributes attrs) {
-		//JSword adds the chapter no at the top but hide this because the chapter is in the And Bible header
+		//JSword adds the chapter no at the top but hide this because the chapter is in the Embedded Bible header
 		boolean addedByJSword = attrs.getLength()==1 && OSISUtil.GENERATED_CONTENT.equals(attrs.getValue(OSISUtil.OSIS_ATTR_TYPE));
 		// otherwise show if user wants Titles or the title is canonical
 		isShowTitle = !addedByJSword && 
@@ -60,7 +55,7 @@ public class TitleHandler implements OsisTagHandler {
 							 "true".equalsIgnoreCase(attrs.getValue(OSISUtil.OSIS_ATTR_CANONICAL)));
 		
 		if (isShowTitle) {
-			// ESV has subType butNETtext has lower case subtype so concatenate both and search with contains() 
+			// ESV has subType butcom.bellmantext has lower case subtype so concatenate both and search with contains()
 			String subtype = attrs.getValue(OSISUtil.OSIS_ATTR_SUBTYPE)+attrs.getValue(OSISUtil.OSIS_ATTR_SUBTYPE.toLowerCase(Locale.ENGLISH));
 			isMoveBeforeVerse = (StringUtils.containsIgnoreCase(subtype, PREVERSE) || (!verseInfo.isTextSinceVerse && verseInfo.currentVerseNo>0));
 			if (isMoveBeforeVerse) {

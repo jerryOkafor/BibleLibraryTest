@@ -4,7 +4,6 @@ import android.os.Build;
 
 import com.bellman.bible.service.common.CommonUtils;
 
-
 /**
  * @author Martin Denham [mjdenham at gmail dot com]
  * @see gnu.lgpl.License for license details.<br>

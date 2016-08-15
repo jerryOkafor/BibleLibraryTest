@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 24
@@ -8,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -22,17 +24,125 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
-    compile 'com.android.support:design:24.1.1'
-    testCompile 'junit:junit:4.12'
     compile files('libs/jsword.jar')
     compile files('libs/mmseg4j-all-1.8.4.jar')
 
+    compile 'org.jdom:jdom2:2.0.6'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.3'
+
+    compile 'org.apache.lucene:lucene-core:3.0.3'
+    compile 'org.apache.lucene:lucene-snowball:3.0.3'
+    compile 'org.apache.lucene:lucene-analyzers:3.0.3'
+
+
+    compile 'org.apache.commons:commons-compress:1.7'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+    compile 'de.psdev.slf4j-android-logger:slf4j-android-logger:1.0.4'
+    compile 'com.android.support:design:24.1.1'
     compile 'de.greenrobot:eventbus:2.4.0'
+    testCompile 'junit:junit:4.12'
+}
+
+
+
+
+def siteUrl = 'https://github.com/jerryhanks/BibleLibraryTest'      // Homepage URL of the library
+def gitUrl = 'https://github.com/jerryhanks/BibleLibraryTest.git'   // Git repository URL
+group = "com.bellman"   // Maven Group ID for the artifact
+version = "1.0.0"
+
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                url siteUrl
+                // Add your description here
+                name 'com.bellman.bible'
+                description = 'My Basic auth module and library'
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'Don Potencio'
+                        name 'Okafor Jerry Hanks'
+                        email 'dedonpot@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    destinationDir = file("../javadoc/")
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "bible"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+        version {
+            desc = "A simple Bible Library"
+            // Optional. The passphrase for GPG signing'
+            // gpg {
+            //    sign = true //Determines whether to GPG sign the files. The default is false
+            //    passphrase = properties.getProperty("bintray.gpg.password")
+            //}
+        }
+
+    }
 }

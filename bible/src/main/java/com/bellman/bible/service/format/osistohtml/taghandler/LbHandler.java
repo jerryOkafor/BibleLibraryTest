@@ -1,9 +1,10 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
-import com.bellman.bible.service.common.Constants;
+
+import com.bellman.bible.service.common.Constants.HTML;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.PassageInfo;
 
 import org.crosswire.jsword.book.OSISUtil;
 import org.xml.sax.Attributes;
@@ -16,17 +17,14 @@ import org.xml.sax.Attributes;
  */
 public class LbHandler implements OsisTagHandler {
 
-	private OsisToHtmlSaxHandler.PassageInfo passageInfo;
-	
-	private HtmlTextWriter writer;
-	
-	@SuppressWarnings("unused")
-	private OsisToHtmlParameters parameters;
-	
 	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("LHandler");
+	private PassageInfo passageInfo;
+	private HtmlTextWriter writer;
+	@SuppressWarnings("unused")
+	private OsisToHtmlParameters parameters;
 
-	public LbHandler(OsisToHtmlParameters parameters, OsisToHtmlSaxHandler.PassageInfo passageInfo, HtmlTextWriter writer) {
+	public LbHandler(OsisToHtmlParameters parameters, PassageInfo passageInfo, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.passageInfo = passageInfo;
 		this.writer = writer;
@@ -40,7 +38,7 @@ public class LbHandler implements OsisTagHandler {
 	@Override
 	public void start(Attributes attrs) {
 		if (passageInfo.isAnyTextWritten) {
-			writer.write(Constants.HTML.BR);
+			writer.write(HTML.BR);
 		}
 	}
 

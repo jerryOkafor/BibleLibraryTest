@@ -3,7 +3,7 @@ package com.bellman.bible.android.control.page;
 import android.app.Activity;
 import android.util.Log;
 
-import com.bellman.bible.android.BibleActivity;
+import com.bellman.bible.android.view.activity.navigation.GridChoosePassageBook;
 import com.bellman.bible.service.common.CommonUtils;
 import com.bellman.bible.service.sword.SwordDocumentFacade;
 
@@ -39,12 +39,11 @@ public class CurrentBiblePage extends VersePage implements CurrentPage {
 	}
 
 	public Class<? extends Activity> getKeyChooserActivity() {
-//		return GridChoosePassageBook.class;
-		return BibleActivity.class;
+		return GridChoosePassageBook.class;
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#next()
+	 * @see com.bellman.bible.android.control.CurrentPage#next()
 	 */
 	@Override
 	public void next() {
@@ -71,7 +70,7 @@ public class CurrentBiblePage extends VersePage implements CurrentPage {
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#previous()
+	 * @see com.bellman.bible.android.control.CurrentPage#previous()
 	 */
 	@Override
 	public void previous() {
@@ -124,22 +123,8 @@ public class CurrentBiblePage extends VersePage implements CurrentPage {
 		return CommonUtils.getWholeChapter(targetChapterVerse1);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#setKey(java.lang.String)
-	 */
-	public void setKey(String keyText) {
-		Log.d(TAG, "key text:"+keyText);
-		try {
-			Key key = getCurrentDocument().getKey(keyText);
-			setKey(key);
-		} catch (NoSuchKeyException nske) {
-			Log.e(TAG, "Invalid verse reference:"+keyText);
-		}
-	}
-
-	
 	/** set key without notification
-	 * 
+	 *
 	 * @param key
 	 */
 	public void doSetKey(Key key) {
@@ -151,7 +136,7 @@ public class CurrentBiblePage extends VersePage implements CurrentPage {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#getSingleKey()
+	 * @see com.bellman.bible.android.control.CurrentPage#getSingleKey()
 	 */
 	@Override
 	public Verse getSingleKey() {
@@ -159,14 +144,27 @@ public class CurrentBiblePage extends VersePage implements CurrentPage {
 		// it is already a Verse but this avoids a downcast
 		return KeyUtil.getVerse(key);
     }
-	
+
 	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#getKey()
+	 * @see com.bellman.bible.android.control.CurrentPage#getKey()
 	 */
 	@Override
 	public Key getKey() {
 		return doGetKey(false);
     }
+
+	/* (non-Javadoc)
+	 * @see com.bellman.bible.android.control.CurrentPage#setKey(java.lang.String)
+	 */
+	public void setKey(String keyText) {
+		Log.d(TAG, "key text:" + keyText);
+		try {
+			Key key = getCurrentDocument().getKey(keyText);
+			setKey(key);
+		} catch (NoSuchKeyException nske) {
+			Log.e(TAG, "Invalid verse reference:" + keyText);
+		}
+	}
 
 	private Key doGetKey(boolean requireSingleKey) {
 		Verse verse = getCurrentBibleVerse().getVerseSelected(getVersification());

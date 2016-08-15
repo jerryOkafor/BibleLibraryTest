@@ -1,7 +1,7 @@
 package com.bellman.bible.service.css;
 
-
-import com.bellman.bible.SharedConstants;
+import com.bellman.bible.service.device.ScreenSettings;
+import com.bellman.bible.util.SharedConstants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CssControl {
 
 	private static final String DEFAULT_ASSET_FOLDER = "android_asset/web/";
-	private static final String DEFAULT_STYLESHEET = "/"+DEFAULT_ASSET_FOLDER+ SharedConstants.DEFAULT_STYLESHEET;
+	private static final String DEFAULT_STYLESHEET = "/" + DEFAULT_ASSET_FOLDER + SharedConstants.DEFAULT_STYLESHEET;
 	private static final String NIGHT_MODE_STYLESHEET = "/"+DEFAULT_ASSET_FOLDER+SharedConstants.NIGHT_MODE_STYLESHEET;
 	
 	// User overrides
@@ -35,14 +35,14 @@ public class CssControl {
 		}
 		
 		// if it is in night mode show the nightmode stylesheet
-//		if (ScreenSettings.isNightMode()) {
-//			styleLinks.add(getLink(NIGHT_MODE_STYLESHEET));
-//
-//			// is there a user specific night mode stylesheet provided by the user
-//			if (isManualCssOverride(MANUAL_NIGHT_MODE_STYLESHEET_FILE)) {
-//				styleLinks.add(getLink(MANUAL_NIGHT_MODE_STYLESHEET_FILE.getAbsolutePath()));
-//			}
-//		}
+		if (ScreenSettings.isNightMode()) {
+			styleLinks.add(getLink(NIGHT_MODE_STYLESHEET));
+
+			// is there a user specific night mode stylesheet provided by the user
+			if (isManualCssOverride(MANUAL_NIGHT_MODE_STYLESHEET_FILE)) {
+				styleLinks.add(getLink(MANUAL_NIGHT_MODE_STYLESHEET_FILE.getAbsolutePath()));
+			}
+		}
 		
 		return styleLinks;
 	}

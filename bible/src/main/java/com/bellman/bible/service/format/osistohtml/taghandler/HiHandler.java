@@ -1,6 +1,5 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
 
@@ -31,7 +30,7 @@ import static org.crosswire.jsword.book.OSISUtil.HI_UNDERLINE;
 public class HiHandler implements OsisTagHandler {
 
 	// possible values of type attribute
-	private static final List<String> HI_TYPE_LIST = Arrays.asList(new String[]{HI_ACROSTIC, HI_BOLD, HI_EMPHASIS, HI_ILLUMINATED, HI_ITALIC, HI_LINETHROUGH, HI_NORMAL, HI_SMALL_CAPS, HI_SUB, HI_SUPER, HI_UNDERLINE});
+	private static final List<String> HI_TYPE_LIST = Arrays.asList(HI_ACROSTIC, HI_BOLD, HI_EMPHASIS, HI_ILLUMINATED, HI_ITALIC, HI_LINETHROUGH, HI_NORMAL, HI_SMALL_CAPS, HI_SUB, HI_SUPER, HI_UNDERLINE);
 	
 	private final static String DEFAULT = "bold";
 

@@ -22,23 +22,17 @@ import java.util.Stack;
  */
 public class QHandler implements OsisTagHandler {
 
-	private HtmlTextWriter writer;
-	
-	private OsisToHtmlParameters parameters;
-	
-	// quotes can be embedded so maintain a stack of info about each quote to be used when closing quote
-	private Stack<QuoteInfo> stack = new Stack<QuoteInfo>();
-	
-	enum QType {quote, redLetter};
 	private static final String MARKER = "marker";
 	private static final String HTML_QUOTE_ENTITY = "&quot;";
-
+	private HtmlTextWriter writer;
+	private OsisToHtmlParameters parameters;
+	// quotes can be embedded so maintain a stack of info about each quote to be used when closing quote
+	private Stack<QuoteInfo> stack = new Stack<QuoteInfo>();
 	public QHandler(OsisToHtmlParameters parameters, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.writer = writer;
 	}
-	
-	
+
 	@Override
 	public String getTagName() {
         return OSISUtil.OSIS_ELEMENT_Q;
@@ -63,7 +57,7 @@ public class QHandler implements OsisTagHandler {
 		if (quoteInfo.isRedLetter) {
 			writer.write("<span class='redLetter'>");
 		}
-		
+
 		// and save the info for the closing tag
 		stack.push(quoteInfo);
 	}
@@ -71,17 +65,19 @@ public class QHandler implements OsisTagHandler {
 	@Override
 	public void end() {
 		QuoteInfo quoteInfo = stack.pop();
-		
+
 		// Jesus words
 		if (quoteInfo.isRedLetter) {
 			writer.write("</span>");
 		}
-		
+
 		// milestone opening and closing tags are doubled up so ensure not double quotes
 		if (!quoteInfo.isMilestone) {
 			writer.write(quoteInfo.marker);
 		}
 	}
+
+	enum QType {quote, redLetter}
 	
 	private static class QuoteInfo {
 		private String marker = HTML_QUOTE_ENTITY;

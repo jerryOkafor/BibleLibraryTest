@@ -1,30 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:icon">@color/icons</item>
-        <item name="android:divider">@color/divider</item>
+<?xml version="1.0" encoding="utf-8"?><!-- Styles used in application
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="ChoosePassageBookGridFont">
+        <item name="android:textSize">40sp</item>
+        <item name="android:height">100dp</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="HelpFont" parent="@android:style/TextAppearance.Large">
+        <item name="android:textColor">@color/yellow_500</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">sans</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.NoBg" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="InfoText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_margin">10dip</item>
     </style>
 
+    <style name="SplashTitleFont" parent="@android:style/TextAppearance.Large">
+        <item name="android:textColor">@color/yellow_500</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:typeface">serif</item>
+    </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SplashTopFont" parent="@android:style/TextAppearance.Large">
+        <item name="android:textColor">@color/yellow_500</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">serif</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="SplashBottomFont" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">#FFCC73</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="SmallGreyText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">#C0C0C0</item>
+    </style>
+
 </resources>

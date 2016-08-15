@@ -1,6 +1,6 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-import com.bellman.bible.service.common.Constants;
+import com.bellman.bible.service.common.Constants.HTML;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
@@ -25,29 +25,22 @@ import java.util.Stack;
  */
 public class LHandler implements OsisTagHandler {
 
-	private enum LType {INDENT, BR, END_BR, IGNORE};
-
+	private static final Logger log = new Logger("LHandler");
+	private static String indent_html = HTML.NBSP + HTML.NBSP;
 	private HtmlTextWriter writer;
-	
 	@SuppressWarnings("unused")
 	private OsisToHtmlParameters parameters;
-	
 	private Stack<LType> stack = new Stack<LType>();
 	
-	private static String indent_html = Constants.HTML.NBSP+ Constants.HTML.NBSP;
-	
-	private static final Logger log = new Logger("LHandler");
-
 	public LHandler(OsisToHtmlParameters parameters, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.writer = writer;
 		int indentCharCount = parameters.getIndentDepth();
-		indent_html = StringUtils.repeat(Constants.HTML.NBSP, indentCharCount);
+		indent_html = StringUtils.repeat(HTML.NBSP, indentCharCount);
 	}
-	
-	
+
 	/* (non-Javadoc)
-	 * @see net.bible.service.format.osistohtml.Handler#getTagName()
+	 * @see com.bellman.bible.service.format.osistohtml.Handler#getTagName()
 	 */
 	@Override
 	public String getTagName() {
@@ -55,7 +48,7 @@ public class LHandler implements OsisTagHandler {
     }
 
 	/* (non-Javadoc)
-	 * @see net.bible.service.format.osistohtml.Handler#start(org.xml.sax.Attributes)
+	 * @see com.bellman.bible.service.format.osistohtml.Handler#start(org.xml.sax.Attributes)
 	 */
 	@Override
 	public void start(Attributes attrs) {
@@ -64,11 +57,11 @@ public class LHandler implements OsisTagHandler {
 		int level = TagHandlerHelper.getAttribute(OSISUtil.OSIS_ATTR_LEVEL, attrs, 1);
 		// make numIndents default to zero
 		int numIndents = Math.max(0, level-1);
-		
+
 		LType ltype = LType.IGNORE;
 		if (TagHandlerHelper.isAttr(OSISUtil.OSIS_ATTR_EID, attrs)) {
 			// e.g. Isaiah 40:12
-			writer.write(Constants.HTML.BR);
+			writer.write(HTML.BR);
 			ltype = LType.BR;
 		} else if (StringUtils.isNotEmpty(type)) {
 			if (type.contains("indent")) {
@@ -77,7 +70,7 @@ public class LHandler implements OsisTagHandler {
 				writer.write(StringUtils.repeat(indent_html, numIndents));
 				ltype = LType.INDENT;
 			} else if (type.contains("br")) {
-				writer.write(Constants.HTML.BR);
+				writer.write(HTML.BR);
 				ltype = LType.BR;
 			} else {
 				ltype = LType.IGNORE;
@@ -95,13 +88,15 @@ public class LHandler implements OsisTagHandler {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.bible.service.format.osistohtml.Handler#end()
+	 * @see com.bellman.bible.service.format.osistohtml.Handler#end()
 	 */
 	@Override
 	public void end() {
 		LType type = stack.pop();
 		if (LType.END_BR.equals(type)) {
-			writer.write(Constants.HTML.BR);
+			writer.write(HTML.BR);
 		}
 	}
+
+	private enum LType {INDENT, BR, END_BR, IGNORE}
 }

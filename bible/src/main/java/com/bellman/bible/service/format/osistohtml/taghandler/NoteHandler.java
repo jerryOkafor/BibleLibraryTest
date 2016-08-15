@@ -3,9 +3,10 @@ package com.bellman.bible.service.format.osistohtml.taghandler;
 
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.Note;
+import com.bellman.bible.service.format.Note.NoteType;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.OSISUtil;
@@ -31,25 +32,21 @@ import java.util.List;
  */
 public class NoteHandler implements OsisTagHandler {
 
-    private OsisToHtmlParameters parameters;
-    private OsisToHtmlSaxHandler.VerseInfo verseInfo;
-
-    private int noteCount = 0;
-
-    //todo temporarily use a string but later switch to Map<int,String> of verse->note
-    private List<Note> notesList = new ArrayList<Note>();
+	@SuppressWarnings("unused")
+	private static final Logger log = new Logger("NoteHandler");
+	private OsisToHtmlParameters parameters;
+	private VerseInfo verseInfo;
+	private int noteCount = 0;
+	//todo temporarily use a string but later switch to Map<int,String> of verse->note
+	private List<Note> notesList = new ArrayList<Note>();
     private boolean isInNote = false;
     private String currentNoteRef;
-
     private HtmlTextWriter writer;
-    
-	@SuppressWarnings("unused")
-    private static final Logger log = new Logger("NoteHandler");
-    
-    public NoteHandler(OsisToHtmlParameters osisToHtmlParameters, OsisToHtmlSaxHandler.VerseInfo verseInfo, HtmlTextWriter theWriter) {
-        this.parameters = osisToHtmlParameters;
-        this.verseInfo = verseInfo;
-        this.writer = theWriter;
+
+	public NoteHandler(OsisToHtmlParameters osisToHtmlParameters, VerseInfo verseInfo, HtmlTextWriter theWriter) {
+		this.parameters = osisToHtmlParameters;
+		this.verseInfo = verseInfo;
+		this.writer = theWriter;
     }
 
 	@Override
@@ -76,7 +73,7 @@ public class NoteHandler implements OsisTagHandler {
 		String noteText = writer.getTempStoreString();
 		if (noteText.length()>0) {
 			if (!StringUtils.containsOnly(noteText, "[];()., ")) {
-				Note note = new Note(verseInfo.currentVerseNo, currentNoteRef, noteText, Note.NoteType.TYPE_GENERAL, null, null);
+				Note note = new Note(verseInfo.currentVerseNo, currentNoteRef, noteText, NoteType.TYPE_GENERAL, null, null);
 				notesList.add(note);
 			}
 			// and clear the buffer
@@ -99,7 +96,7 @@ public class NoteHandler implements OsisTagHandler {
 
 		// record the note information to show if user requests to see notes for this verse
 		if (isInNote || parameters.isAutoWrapUnwrappedRefsInNote()) {
-			Note note = new Note(verseInfo.currentVerseNo, currentNoteRef, refText, Note.NoteType.TYPE_REFERENCE, osisRef, parameters.getDocumentVersification());
+			Note note = new Note(verseInfo.currentVerseNo, currentNoteRef, refText, NoteType.TYPE_REFERENCE, osisRef, parameters.getDocumentVersification());
 			notesList.add(note);
 		}
     }

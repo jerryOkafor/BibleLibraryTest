@@ -3,7 +3,6 @@ package com.bellman.bible.android.control.page;
 import android.app.Activity;
 import android.view.Menu;
 
-
 import com.bellman.bible.service.common.ParseException;
 import com.bellman.bible.service.format.Note;
 
@@ -22,72 +21,76 @@ import java.util.List;
  */
 public interface CurrentPage {
 
-	public abstract String toString();
+	String toString();
 
-	public abstract BookCategory getBookCategory();
+	BookCategory getBookCategory();
 
-	public abstract Class<? extends Activity> getKeyChooserActivity();
+	Class<? extends Activity> getKeyChooserActivity();
 
-	public abstract void next();
+	void next();
 
-	public abstract void previous();
+	void previous();
 	
 	/** get incremented key according to the type of page displayed - verse, chapter, ...
 	 */
-	public abstract Key getKeyPlus(int num);
+	Key getKeyPlus(int num);
 
 	/** add or subtract a number of pages from the current position and return Page
 	 */
-	public Key getPagePlus(int num);
+	Key getPagePlus(int num);
 
 	/** set key without updating screens */
-	public abstract void doSetKey(Key key);
+	void doSetKey(Key key);
 
-	/** set key and update screens */
-	public abstract void setKey(Key key);
+	boolean isSingleKey();
 
-	public abstract boolean isSingleKey();
-	
 	// bible and commentary share a key (verse)
-	public boolean isShareKeyBetweenDocs();
-
+	boolean isShareKeyBetweenDocs();
+	
 	/** get current key
 	 */
-	public abstract Key getKey();
+	Key getKey();
+
+	/**
+	 * set key and update screens
+	 */
+	void setKey(Key key);
 	
 	/** get key for 1 verse instead of whole chapter if bible
 	 */
-	public abstract Key getSingleKey();
-	
-	public abstract Book getCurrentDocument();
+	Key getSingleKey();
 
-	public abstract void setCurrentDocument(Book currentBible);
+	Book getCurrentDocument();
 
-	public void setCurrentDocumentAndKey(Book doc, Key key);
-	
-	public boolean checkCurrentDocumentStillInstalled();
+	void setCurrentDocument(Book currentBible);
+
+	void setCurrentDocumentAndKey(Book doc, Key key);
+
+	boolean checkCurrentDocumentStillInstalled();
 
 	/** get a page to display */
-	public String getCurrentPageContent() throws ParseException;
+	String getCurrentPageContent() throws ParseException;
 
 	/** get footnotes */
-	public List<Note> getCurrentPageFootnotesAndReferences() throws ParseException;
+	List<Note> getCurrentPageFootnotesAndReferences() throws ParseException;
 
-	public abstract void updateOptionsMenu(Menu menu);
+	void updateOptionsMenu(Menu menu);
 
-	public abstract void restoreState(JSONObject state) throws JSONException;
+	void restoreState(JSONObject state) throws JSONException;
 
-	public abstract JSONObject getStateJson() throws JSONException;
+	JSONObject getStateJson() throws JSONException;
 
-	public abstract void setInhibitChangeNotifications(boolean inhibitChangeNotifications);
+	boolean isInhibitChangeNotifications();
 
-	public abstract boolean isInhibitChangeNotifications();
+	void setInhibitChangeNotifications(boolean inhibitChangeNotifications);
 
-	public abstract boolean isSearchable();
-	public abstract boolean isSpeakable();
+	boolean isSearchable();
+
+	boolean isSpeakable();
 	
 	//screen offset as a percentage of total height of screen
-	public float getCurrentYOffsetRatio();
-	public void setCurrentYOffsetRatio(float currentYOffsetRatio);
+	float getCurrentYOffsetRatio();
+
+	void setCurrentYOffsetRatio(float currentYOffsetRatio);
 
 }

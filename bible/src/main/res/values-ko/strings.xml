@@ -123,7 +123,7 @@
   <string name="document_not_installed">다운로드 \'%s\' 을하세요</string>
   <!--Install zip file-->
   <string name="install_zip">Zip 파일에서 문서를 설치</string>
-  <string name="install_zip_successfull">문서가 성공적으로 설치</string>
+  <string name="install_zip_successful">문서가 성공적으로 설치</string>
   <string name="extracting_zip_file">지금 Zip 파일을 추출 ...</string>
   <string name="checking_zip_file">주어진 파일을 확인 중 ...</string>
   <string name="invalid_module">파일이 올바른 Sword 모듈 아니다</string>

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!--Startup & Help-->
   <string name="splash_top_text">\nTu povedal Boh: \"Buď svetlo!\" a bolo svetlo.</string>
   <string name="help_text">Stlač kláves MENU pre viaceré možnosti. Ťahom po obrazovke vľavo alebo vpravo sa rýchlo prepneš medzi kapitolami. (alebo track-ballom(</string>
   <string name="help_text_long"><b>Navigácia</b>Ťahom zľava doprava alebo naopak môžeš prejsť na ďalšiu alebo predošlú kapitolu. Túto akciu možno vykonávať aj pomocou track-ballu alebo D-padu. Dvojdotykom sa prepneš do režimu celej obrazovky a späť. Pre viacero možností stlač klávesu<b>Menu</b>. Z internetu je možné stiahnuť ďalšie preklady a dokumenty - položka Stiahni dokumenty. Tlačidlom <b>Hovoriť</b> môžeš nastaviť čítanie daného textu androidom. Ku každému veršu môžeš pridávať poznámky alebo záložky, ktoré si potom môžeš triediť do skupín. Ich pridanie urobíš cez kontextové menu - dlhšie podržanie palca na zvolenom texte. Správca poznámok je v hlavnej ponuke. Takisto aj správca záložiek. Zatriedené skupiny môžu mať vlastné názvy. <b>Hľadanie</b> Text vyhľadávania môže obsahovať špeciálne znaky ako *, ?, AND, OR, NOT (Podrobné vysvetlenie: "Apache Lucene - Query Parser Syntax) <b>Kontektové menu</b> Dlhším podržaním prsta na zvolenom verši vyvolá kontextovú ponuku ovplyvňujúcu daný verš. Dlhším podržaním prsta pri výbere dokumentov je možné dokument priamo zmazať alebo zobraziť jeho podrobnejšie informácie. Dlhším stiskom tlačidla Späť sa dostaneš k histórii prezerania.</string>
   <string name="version_text">Verzia %s</string>
-  <string name="no_sdcard_error">Prosím, vložte SD kartu a spustite And Bible ešte raz.</string>
+  <string name="no_sdcard_error">Prosím, vložte SD kartu a spustite Embedded Bible ešte raz.</string>
   <!--Main menu-->
   <string name="chooseBook">Dokument</string>
   <string name="selectPassage">Časť</string>
@@ -124,7 +124,7 @@
   <string name="document_not_installed">Prosím, stiahnete \'%s</string>
   <!--Install zip file-->
   <string name="install_zip">Načítať Dokument z archívu ZIP</string>
-  <string name="install_zip_successfull">Modul bol úspešne inštalovaný</string>
+  <string name="install_zip_successful">Modul bol úspešne inštalovaný</string>
   <string name="extracting_zip_file">Rozbaľujem ZIP súbor...</string>
   <string name="checking_zip_file">Prebieha kontrola súboru...</string>
   <string name="invalid_module">Súbor neobsahuje platný SWORD modul</string>
@@ -153,7 +153,7 @@
   <string name="notes">Poznámky pod čiarou a odkazy</string>
   <string name="copy">Kopírovať</string>
   <string name="share_verse">Zdieľať</string>
-  <string name="share_verse_subject">Verš z Biblie (pomocou programu And Bible) je s vami zdieľaný...</string>
+  <string name="share_verse_subject">Verš z Biblie (pomocou programu Embedded Bible) je s vami zdieľaný...</string>
   <string name="compare_translations">Porovnať preklady</string>
   <!--Bookmarks-->
   <string name="bookmarks">Záložky</string>

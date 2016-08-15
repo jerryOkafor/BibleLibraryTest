@@ -1,43 +1,7 @@
 package com.bellman.bible.service.format.osistohtml.osishandlers;
 
-//import net.bible.service.common.Logger;
-//import net.bible.service.device.ScreenSettings;
-//import net.bible.service.font.FontControl;
-//import net.bible.service.format.Note;
-//import net.bible.service.format.osistohtml.OsisToHtmlParameters;
-//import net.bible.service.format.osistohtml.preprocessor.HebrewCharacterPreprocessor;
-//import net.bible.service.format.osistohtml.preprocessor.TextPreprocessor;
-//import net.bible.service.format.osistohtml.strongs.StrongsHandler;
-//import net.bible.service.format.osistohtml.strongs.StrongsLinkCreator;
-//import net.bible.service.format.osistohtml.taghandler.BookmarkMarker;
-//import net.bible.service.format.osistohtml.taghandler.DivHandler;
-//import net.bible.service.format.osistohtml.taghandler.DivineNameHandler;
-//import net.bible.service.format.osistohtml.taghandler.FigureHandler;
-//import net.bible.service.format.osistohtml.taghandler.HiHandler;
-//import net.bible.service.format.osistohtml.taghandler.LHandler;
-//import net.bible.service.format.osistohtml.taghandler.LbHandler;
-//import net.bible.service.format.osistohtml.taghandler.LgHandler;
-//import net.bible.service.format.osistohtml.taghandler.ListHandler;
-//import net.bible.service.format.osistohtml.taghandler.ListItemHandler;
-//import net.bible.service.format.osistohtml.taghandler.MilestoneHandler;
-//import net.bible.service.format.osistohtml.taghandler.MyNoteMarker;
-//import net.bible.service.format.osistohtml.taghandler.NoteHandler;
-//import net.bible.service.format.osistohtml.taghandler.OsisTagHandler;
-//import net.bible.service.format.osistohtml.taghandler.PHandler;
-//import net.bible.service.format.osistohtml.taghandler.QHandler;
-//import net.bible.service.format.osistohtml.taghandler.ReferenceHandler;
-//import net.bible.service.format.osistohtml.taghandler.TableCellHandler;
-//import net.bible.service.format.osistohtml.taghandler.TableHandler;
-//import net.bible.service.format.osistohtml.taghandler.TableRowHandler;
-//import net.bible.service.format.osistohtml.taghandler.TitleHandler;
-//import net.bible.service.format.osistohtml.taghandler.TransChangeHandler;
-//import net.bible.service.format.osistohtml.taghandler.VerseHandler;
-//import net.bible.service.format.osistohtml.tei.OrthHandler;
-//import net.bible.service.format.osistohtml.tei.PronHandler;
-//import net.bible.service.format.osistohtml.tei.RefHandler;
-//
-//import org.apache.commons.lang.StringUtils;
 import com.bellman.bible.service.common.Logger;
+import com.bellman.bible.service.device.ScreenSettings;
 import com.bellman.bible.service.font.FontControl;
 import com.bellman.bible.service.format.Note;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
@@ -117,51 +81,35 @@ import java.util.Set;
  */
 public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 
+	private static final String HEBREW_LANGUAGE_CODE = "he";
+	private static final Set<String> IGNORED_TAGS = new HashSet<>(Arrays.asList(OSISUtil.OSIS_ELEMENT_CHAPTER));
+	private static final Logger log = new Logger("OsisToHtmlSaxHandler");
 	// properties
 	private OsisToHtmlParameters parameters;
-
 	// tag handlers for the different OSIS tags
 	private Map<String, OsisTagHandler> osisTagHandlers;
-	
 	private NoteHandler noteHandler;
-	
 	// processor for the tag content
 	private TextPreprocessor textPreprocessor;
-
 	// internal logic
 	private VerseInfo verseInfo = new VerseInfo();
-	public static class VerseInfo {
-		public int currentVerseNo;
-		public int positionToInsertBeforeVerse;
-		public boolean isTextSinceVerse = false;
-	}
-	
 	private PassageInfo passageInfo = new PassageInfo();
-	public static class PassageInfo {
-		public boolean isAnyTextWritten = false;
-	}
 	
-	private static final String HEBREW_LANGUAGE_CODE = "he";
-	
-	private static final Set<String> IGNORED_TAGS = new HashSet<>(Arrays.asList(OSISUtil.OSIS_ELEMENT_CHAPTER));
-
-	private static final Logger log = new Logger("OsisToHtmlSaxHandler");
-
 	public OsisToHtmlSaxHandler(OsisToHtmlParameters parameters) {
 		super();
 		this.parameters = parameters;
-		
+
 		osisTagHandlers = new HashMap<>();
-		
+
 		BookmarkMarker bookmarkMarker = new BookmarkMarker(parameters, verseInfo, getWriter());
 		MyNoteMarker myNoteMarker = new MyNoteMarker(parameters, verseInfo, getWriter());
 		registerHandler( new VerseHandler(parameters, verseInfo, bookmarkMarker, myNoteMarker, getWriter()) );
-		
+
 		noteHandler = new NoteHandler(parameters, verseInfo, getWriter());
 		registerHandler( noteHandler  );
 		registerHandler( new ReferenceHandler(parameters, noteHandler, getWriter()) );
 		registerHandler( new RefHandler(parameters, noteHandler, getWriter()) );
-		
+
 		registerHandler( new DivineNameHandler(getWriter()) );
 		registerHandler( new TitleHandler(parameters, verseInfo, getWriter()) );
 		registerHandler( new QHandler(parameters, getWriter()) );
@@ -190,7 +138,7 @@ public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 			textPreprocessor = new StrongsLinkCreator();
 		}
 	}
-	
+
 	private void registerHandler(OsisTagHandler handler) {
 		if (osisTagHandlers.put(handler.getTagName(), handler)!=null) {
 			throw new InvalidParameterException("Duplicate handlers for tag "+handler.getTagName());
@@ -199,7 +147,7 @@ public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 
 	@Override
 	public void startDocument()  {
-		String jQueryjs = "\n<script type='text/javascript' src='file:///android_asset/web/jquery-2.2.3.js'></script>\n"+
+		String jQueryjs = "\n<script type='text/javascript' src='file:///android_asset/web/jquery-v3.1.0.min.js'></script>\n" +
 				"<script type='text/javascript' src='file:///android_asset/web/jquery.longpress.js'></script>\n"+
 				"<script type='text/javascript' src='file:///android_asset/web/jquery.nearest.min.1.4.0.js'></script>\n";
 		String jsTag = "\n<script type='text/javascript' src='file:///android_asset/web/script.js'></script>\n";
@@ -235,7 +183,7 @@ public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 				write("</div>");
 			}
 		}
-		
+
 		// add optional footer e.g. Strongs show all occurrences link
 		if (StringUtils.isNotEmpty(parameters.getExtraFooter())) {
 			write(parameters.getExtraFooter());
@@ -303,17 +251,17 @@ public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 	@Override
 	public void characters(char buf[], int offset, int len) {
 		String s = new String(buf, offset, len);
-		
+
 		// record that we are now beyond the verse, but do it quickly so as not to slow down parsing
 		verseInfo.isTextSinceVerse = verseInfo.isTextSinceVerse ||
 										len>2 ||
 										StringUtils.isNotBlank(s);
 		passageInfo.isAnyTextWritten = passageInfo.isAnyTextWritten || verseInfo.isTextSinceVerse;
-		
+
 		if (textPreprocessor!=null) {
 			s = textPreprocessor.process(s);
 		}
-		
+
 		write(s);
 	}
 
@@ -338,13 +286,22 @@ public class OsisToHtmlSaxHandler extends OsisSaxHandler {
 		// but some books already contain padding (br) at end so I fudge by multiplying line height by 2 to try to avoid all text scrolling off screen
 		// this is not very accurate.  Some books have a <br />s at the end making the padding too large
 		// also the user can toggle full screen after the last view height calculation
-		// 1.5 is a fudge factor to try to keep a little of the text on the screen for books that end in a <br /> 
-//		int paddingHeightDips = (int)(ScreenSettings.getContentViewHeightDips()-(2*ScreenSettings.getLineHeightDips()));
-//		return "<img height='"+paddingHeightDips+"' width='1' border='0' vspace='0' style='display:block'/>";
-		return "";
+		// 1.5 is a fudge factor to try to keep a little of the text on the screen for books that end in a <br />
+		int paddingHeightDips = ScreenSettings.getContentViewHeightDips() - (2 * ScreenSettings.getLineHeightDips());
+		return "<img height='" + paddingHeightDips + "' width='1' border='0' vspace='0' style='display:block'/>";
 	}
 
 	public List<Note> getNotesList() {
 		return noteHandler.getNotesList();
+	}
+
+	public static class VerseInfo {
+		public int currentVerseNo;
+		public int positionToInsertBeforeVerse;
+		public boolean isTextSinceVerse = false;
+	}
+
+	public static class PassageInfo {
+		public boolean isAnyTextWritten = false;
 	}
 }

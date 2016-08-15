@@ -1,7 +1,6 @@
 package com.bellman.bible.android.control.event.window;
 
-
-import com.bellman.bible.android.control.window.Window;
+import com.bellman.bible.android.control.page.window.Window;
 
 /**
  * Correct bible page is shown but need to scroll to a different verse

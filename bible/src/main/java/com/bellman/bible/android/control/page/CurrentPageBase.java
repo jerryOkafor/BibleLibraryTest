@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.bellman.bible.R;
+import com.bellman.bible.android.activity.R;
 import com.bellman.bible.android.control.PassageChangeMediator;
 import com.bellman.bible.service.common.ParseException;
 import com.bellman.bible.service.format.HtmlMessageFormatter;
@@ -30,27 +30,21 @@ import java.util.List;
  */
 abstract class CurrentPageBase implements CurrentPage {
 
+	private static final String TAG = "CurrentPage";
 	private Book currentDocument;
-	
 	private boolean inhibitChangeNotifications;
-	
 	private float currentYOffsetRatio;
 	private Key keyWhenYOffsetRatioSet;
 	private Book docWhenYOffsetRatioSet;
-
-	private static final String TAG = "CurrentPage";
-
 	// all bibles and commentaries share the same key
 	private boolean shareKeyBetweenDocs = false;
-	
-	public abstract void doSetKey(Key key);
-	
 	
 	protected CurrentPageBase(boolean shareKeyBetweenDocs) {
 		super();
 		this.shareKeyBetweenDocs = shareKeyBetweenDocs;
 	}
 
+	public abstract void doSetKey(Key key);
 
 	/** notify mediator that page has changed and a lot of things need to update themselves
 	 */
@@ -130,7 +124,7 @@ abstract class CurrentPageBase implements CurrentPage {
 	}
 	
 	/* (non-Javadoc)
-	 * @see net.bible.android.control.CurrentPage#getCurrentDocument()
+	 * @see com.bellman.bible.android.control.CurrentPage#getCurrentDocument()
 	 */
 	@Override
 	public Book getCurrentDocument() {
@@ -145,7 +139,7 @@ abstract class CurrentPageBase implements CurrentPage {
 
 
 	/* Set new doc and if possible show new doc
-	 * @see net.bible.android.control.CurrentPage#setCurrentDocument(org.crosswire.jsword.book.Book)
+	 * @see com.bellman.bible.android.control.CurrentPage#setCurrentDocument(org.crosswire.jsword.book.Book)
 	 */
 	@Override
 	public void setCurrentDocument(Book doc) {
@@ -165,7 +159,7 @@ abstract class CurrentPageBase implements CurrentPage {
 	}
 	
 	/* Set new doc and if possible show new doc
-	 * @see net.bible.android.control.CurrentPage#setCurrentDocument(org.crosswire.jsword.book.Book)
+	 * @see com.bellman.bible.android.control.CurrentPage#setCurrentDocument(org.crosswire.jsword.book.Book)
 	 */
 	@Override
 	public void setCurrentDocumentAndKey(Book doc, Key key) {
@@ -180,18 +174,18 @@ abstract class CurrentPageBase implements CurrentPage {
 	@Override
 	public void updateOptionsMenu(Menu menu) {
 		// these are fine for Bible and commentary
-//		MenuItem menuItem = menu.findItem(R.id.searchButton);
-//		if (menuItem!=null) {
-//			menuItem.setEnabled(isSearchable());
-//		}
-//		menuItem = menu.findItem(R.id.bookmarksButton);
-//		if (menuItem!=null) {
-//			menuItem.setEnabled(true);
-//		}
-//		menuItem = menu.findItem(R.id.speakButton);
-//		if (menuItem!=null) {
-//			menuItem.setEnabled(isSpeakable());
-//		}
+		MenuItem menuItem = menu.findItem(R.id.searchButton);
+		if (menuItem != null) {
+			menuItem.setEnabled(isSearchable());
+		}
+		menuItem = menu.findItem(R.id.bookmarksButton);
+		if (menuItem != null) {
+			menuItem.setEnabled(true);
+		}
+		menuItem = menu.findItem(R.id.speakButton);
+		if (menuItem != null) {
+			menuItem.setEnabled(isSpeakable());
+		}
 	}
 	
 	@Override

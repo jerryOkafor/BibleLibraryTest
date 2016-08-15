@@ -3,24 +3,9 @@ package com.bellman.bible.service.sword;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-//import net.bible.android.Bible;
-//import net.bible.android.activity.R;
-//import net.bible.android.control.ControlFactory;
-//import net.bible.service.common.CommonUtils;
-//import net.bible.service.common.Constants;
-//import net.bible.service.common.Logger;
-//import net.bible.service.common.ParseException;
-//import net.bible.service.css.CssControl;
-//import net.bible.service.font.FontControl;
-//import net.bible.service.format.HtmlMessageFormatter;
-//import net.bible.service.format.Note;
-//import net.bible.service.format.OSISInputStream;
-//import net.bible.service.format.osistohtml.OsisToHtmlParameters;
-//import net.bible.service.format.osistohtml.osishandlers.OsisToCanonicalTextSaxHandler;
-//import net.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
-//import net.bible.service.format.osistohtml.osishandlers.OsisToSpeakTextSaxHandler;
-
-import com.bellman.bible.R;
+import com.bellman.bible.android.activity.R;
+import com.bellman.bible.android.control.ControlFactory;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
 import com.bellman.bible.service.common.CommonUtils;
 import com.bellman.bible.service.common.Constants;
 import com.bellman.bible.service.common.Logger;
@@ -60,8 +45,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import app.Bible;
-
 /** JSword facade
  * 
  * @author Martin Denham [mjdenham at gmail dot com]
@@ -70,18 +53,18 @@ import app.Bible;
  */
 public class SwordContentFacade {
 	
-	private DocumentParseMethod documentParseMethod = new DocumentParseMethod();
-	
-	private CssControl cssControl = new CssControl();
-	
 	private static final String TAG = "SwordContentFacade";
-	private static SwordContentFacade singleton;
-	
+	private static final Logger log = new Logger(SwordContentFacade.class.getName());
 	// set to false for testing
 	public static boolean isAndroid = true; //CommonUtils.isAndroid();
-	
-    private static final Logger log = new Logger(SwordContentFacade.class.getName()); 
+	private static SwordContentFacade singleton;
+	private DocumentParseMethod documentParseMethod = new DocumentParseMethod();
+	private CssControl cssControl = new CssControl();
+	private SAXParser saxParser;
 
+	private SwordContentFacade() {
+	}
+	
 	public static SwordContentFacade getInstance() {
 		if (singleton==null) {
 			synchronized(SwordContentFacade.class)  {
@@ -94,11 +77,12 @@ public class SwordContentFacade {
 		return singleton;
 	}
 
-	private SwordContentFacade() {
+	public static void setAndroid(boolean isAndroid) {
+		SwordContentFacade.isAndroid = isAndroid;
 	}
 	
 	/** top level method to fetch html from the raw document data
-	 * 
+	 *
 	 * @param book
 	 * @param key
 	 * @return
@@ -115,7 +99,7 @@ public class SwordContentFacade {
 			retVal = "";
 		} else if (Books.installed().getBook(book.getInitials())==null) {
 			Log.w(TAG, "Book may have been uninstalled:"+book);
-			String errorMsg = Bible.getApplication().getString(R.string.document_not_installed, book.getInitials());
+			String errorMsg = CurrentActivityHolder.getInstance().getApplication().getString(R.string.document_not_installed, book.getInitials());
 			String htmlMsg = HtmlMessageFormatter.format(errorMsg);
 			retVal = htmlMsg;
 		} else if (!bookContainsAnyOf(book, key)) {
@@ -124,7 +108,7 @@ public class SwordContentFacade {
 			retVal = htmlMsg;
 		} else {
 
-			// we have a fast way of handling OSIS zText docs but some docs need the superior JSword error recovery for mismatching tags 
+			// we have a fast way of handling OSIS zText docs but some docs need the superior JSword error recovery for mismatching tags
 			// try to parse using optimised method first if a suitable document and it has not failed previously
 			boolean isParsedOk = false;
 			if ("OSIS".equals(book.getBookMetaData().getProperty("SourceType")) &&
@@ -136,8 +120,8 @@ public class SwordContentFacade {
 				} catch (ParseException pe) {
 					documentParseMethod.failedToParse(book, key);
 				}
-			} 
-			
+			}
+
 			// fall back to slightly slower JSword method with JSword's fallback approach of removing all tags
 			if (!isParsedOk) {
 				retVal = readHtmlTextStandardJSwordMethod(book, key);
@@ -156,9 +140,9 @@ public class SwordContentFacade {
 			SAXEventProvider osissep = data.getSAXEventProvider();
 			if (osissep != null) {
 				OsisToHtmlSaxHandler osisToHtml = getSaxHandler(book, key);
-		
+
 				osissep.provideSAXEvents(osisToHtml);
-		
+
 				retVal = osisToHtml.getNotesList();
 			} else {
 				Log.e(TAG, "No osis SEP returned");
@@ -168,25 +152,25 @@ public class SwordContentFacade {
 			log.error("Parsing error", e);
 			throw new ParseException("Parsing error", e);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Use OSISInputStream which loads a single verse at a time as required.
-	 * This reduces memory requirements compared to standard JDom SaxEventProvider 
+	 * This reduces memory requirements compared to standard JDom SaxEventProvider
 	 */
 	private String readHtmlTextOptimizedZTextOsis(Book book, Key key) throws ParseException
 	{
 		log.debug("Using fast method to fetch document data");
 		/**
-		 * When you supply an InputStream, the SAX implementation wraps the stream in an InputStreamReader; 
-		 * then SAX automatically detects the correct character encoding from the stream. You can then omit the setEncoding() step, 
+		 * When you supply an InputStream, the SAX implementation wraps the stream in an InputStreamReader;
+		 * then SAX automatically detects the correct character encoding from the stream. You can then omit the setEncoding() step,
 		 * reducing the method invocations once again. The result is an application that is faster, and always has the correct character encoding.
 		 */
 		InputStream is = new OSISInputStream(book, key);
 
 		OsisToHtmlSaxHandler osisToHtml = getSaxHandler(book, key);
-	
+
 		SAXParser parser = getSAXParser();
 		try {
 			parser.parse(is, osisToHtml);
@@ -194,7 +178,7 @@ public class SwordContentFacade {
 			log.error("Parsing error", e);
 			throw new ParseException("Parsing error", e);
 		}
-		
+
 		return osisToHtml.toString();
 	}
 
@@ -211,12 +195,12 @@ public class SwordContentFacade {
 				retVal = "Error fetching osis SEP";
 			} else {
 				OsisToHtmlSaxHandler osisToHtml = getSaxHandler(book, key);
-		
+
 				osissep.provideSAXEvents(osisToHtml);
-		
+
 				retVal = osisToHtml.toString();
-			}		
-	        return retVal;
+			}
+			return retVal;
 		} catch (Exception e) {
 			log.error("Parsing error", e);
 			throw new ParseException("Parsing error", e);
@@ -226,7 +210,7 @@ public class SwordContentFacade {
 	/**
 	 * Obtain a SAX event provider for the OSIS document representation of one
 	 * or more book entries.
-	 * 
+	 *
 	 * @param book
 	 *            the book to use
 	 * @param reference
@@ -258,58 +242,57 @@ public class SwordContentFacade {
     /**
      * Get just the canonical text of one or more book entries without any
      * markup.
-     * 
-     * @param book
-     *            the book to use
-     * @param key
+	 *
+	 * @param book
+	 *            the book to use
+	 * @param key
      *            a reference, appropriate for the book, of one or more entries
      */
     public String getCanonicalText(Book book, Key key) throws NoSuchKeyException, BookException, ParseException {
     	try {
 			BookData data = new BookData(book, key);
 			SAXEventProvider osissep = data.getSAXEventProvider();
-		
+
 			ContentHandler osisHandler = new OsisToCanonicalTextSaxHandler();
 
 			osissep.provideSAXEvents(osisHandler);
-		
+
 			return osisHandler.toString();
     	} catch (Exception e) {
     		Log.e(TAG, "Error getting text from book" , e);
-    		return Bible.getApplication().getString(R.string.error_occurred);
-    	}
-    }
+			return CurrentActivityHolder.getInstance().getApplication().getString(R.string.error_occurred);
+		}
+	}
 
     /**
      * Get text to be spoken without any markup.
-     * 
-     * @param book
-     *            the book to use
-     * @param key
+	 *
+	 * @param book
+	 *            the book to use
+	 * @param key
      *            a reference, appropriate for the book, of one or more entries
      */
     public String getTextToSpeak(Book book, Key key) throws NoSuchKeyException, BookException, ParseException {
     	try {
 			BookData data = new BookData(book, key);
 			SAXEventProvider osissep = data.getSAXEventProvider();
-		
+
 			boolean sayReferences = BookCategory.GENERAL_BOOK.equals(book.getBookCategory());
 			ContentHandler osisHandler = new OsisToSpeakTextSaxHandler(sayReferences);
-			
-			
+
+
 			osissep.provideSAXEvents(osisHandler);
-		
+
 			return osisHandler.toString();
     	} catch (Exception e) {
     		Log.e(TAG, "Error getting text from book" , e);
-    		return Bible.getApplication().getString(R.string.error_occurred);
-    	}
-    }
+			return CurrentActivityHolder.getInstance().getApplication().getString(R.string.error_occurred);
+		}
+	}
 
-    private SAXParser saxParser;
-    private SAXParser getSAXParser() throws ParseException {
-    	try {
-	    	if (saxParser==null) {
+	private SAXParser getSAXParser() throws ParseException {
+		try {
+			if (saxParser==null) {
 	    		SAXParserFactory spf = SAXParserFactory.newInstance();
 	    		spf.setValidating(false);
 	   			saxParser = spf.newSAXParser();
@@ -320,14 +303,14 @@ public class SwordContentFacade {
 		}
 		return saxParser;
     }
-    
-    /**
-     * Get just the canonical text of one or more book entries without any
-     * markup.
-     * 
-     * @param book
-     *            the book to use
-     * @param reference
+
+	/**
+	 * Get just the canonical text of one or more book entries without any
+	 * markup.
+	 *
+	 * @param book
+	 *            the book to use
+	 * @param reference
      *            a reference, appropriate for the book, of one or more entries
      */
     public String getPlainText(Book book, String reference, int maxKeyCount) throws BookException, NoSuchKeyException {
@@ -346,10 +329,10 @@ public class SwordContentFacade {
     /**
      * Get just the canonical text of one or more book entries without any
      * markup.
-     * 
-     * @param book
-     *            the book to use
-     * @param key
+	 *
+	 * @param book
+	 *            the book to use
+	 * @param key
      *            a reference, appropriate for the book, of one or more entries
      */
     public String getPlainText(Book book, Key key, int maxKeyCount) throws BookException, NoSuchKeyException {
@@ -374,7 +357,7 @@ public class SwordContentFacade {
 //        System.out.println("h3068 result count:"+key1.getCardinality());
 
 		Log.d(TAG,	"Searching:"+bible+" Search term:" + searchText);
-		
+
 		// This does a standard operator search. See the search
 		// documentation for more examples of how to search
 		Key key = bible.find(searchText); //$NON-NLS-1$
@@ -392,17 +375,17 @@ public class SwordContentFacade {
 		osisToHtmlParameters.setLeftToRight(bmd.isLeftToRight());
 		osisToHtmlParameters.setLanguageCode(book.getLanguage().getCode());
 		osisToHtmlParameters.setModuleBasePath(book.getBookMetaData().getLocation());
-		
-		// If Bible or Commentary then set Basis for partial references to current Key/Verse 
+
+		// If Bible or Commentary then set Basis for partial references to current Key/Verse
 		if (BookCategory.BIBLE.equals(bookCategory) || BookCategory.COMMENTARY.equals(bookCategory)) {
 			osisToHtmlParameters.setBasisRef(key);
 			osisToHtmlParameters.setDocumentVersification(((AbstractPassageBook)book).getVersification());
 		}
-		
+
 		if (isAndroid) {
 	    	// HunUj has an error in that refs are not wrapped so automatically add notes around refs
 	    	osisToHtmlParameters.setAutoWrapUnwrappedRefsInNote("HunUj".equals(book.getInitials()));
-	    	
+
 			SharedPreferences preferences = CommonUtils.getSharedPreferences();
 			if (preferences!=null) {
 				// prefs applying to any doc type
@@ -417,46 +400,42 @@ public class SwordContentFacade {
 					osisToHtmlParameters.setShowMyNotes(preferences.getBoolean("show_mynotes_pref", true));
 					osisToHtmlParameters.setShowBookmarks(preferences.getBoolean("show_bookmarks_pref", true));
 					osisToHtmlParameters.setShowTitles(preferences.getBoolean("section_title_pref", true));
-//					osisToHtmlParameters.setVersesWithNotes(ControlFactory.getInstance().getMyNoteControl().getVersesWithNotesInPassage(key));
-//					osisToHtmlParameters.setVersesWithBookmarks(ControlFactory.getInstance().getBookmarkControl().getVersesWithBookmarksInPassage(key));
+					osisToHtmlParameters.setVersesWithNotes(ControlFactory.getInstance().getMyNoteControl().getVersesWithNotesInPassage(key));
+					osisToHtmlParameters.setVersesWithBookmarks(ControlFactory.getInstance().getBookmarkControl().getVersesWithBookmarksInPassage(key));
 
 					// showMorphology depends on showStrongs to allow the toolbar toggle button to affect both strongs and morphology
 					boolean showStrongs = preferences.getBoolean("show_strongs_pref", true);
 					osisToHtmlParameters.setShowStrongs(showStrongs);
 					osisToHtmlParameters.setShowMorphology(showStrongs && preferences.getBoolean("show_morphology_pref", false));
 				}
-				
+
 				if (BookCategory.DICTIONARY.equals(bookCategory)) {
 					if (book.hasFeature(FeatureType.HEBREW_DEFINITIONS)) {
 						//add allHebrew refs link
-						String prompt = Bible.getApplication().getString(R.string.all_hebrew_occurrences);
-						osisToHtmlParameters.setExtraFooter("<br /><a href='"+ Constants.ALL_HEBREW_OCCURRENCES_PROTOCOL+":"+key.getName()+"' class='allStrongsRefsLink'>"+prompt+"</a>");
+						String prompt = CurrentActivityHolder.getInstance().getApplication().getString(R.string.all_hebrew_occurrences);
+						osisToHtmlParameters.setExtraFooter("<br /><a href='" + Constants.ALL_HEBREW_OCCURRENCES_PROTOCOL + ":" + key.getName() + "' class='allStrongsRefsLink'>" + prompt + "</a>");
 
 						//convert text refs to links
 						osisToHtmlParameters.setConvertStrongsRefsToLinks(true);
 					} else if (book.hasFeature(FeatureType.GREEK_DEFINITIONS)) {
 						//add allGreek refs link
-						String prompt = Bible.getApplication().getString(R.string.all_greek_occurrences);
+						String prompt = CurrentActivityHolder.getInstance().getApplication().getString(R.string.all_greek_occurrences);
 						osisToHtmlParameters.setExtraFooter("<br /><a href='"+Constants.ALL_GREEK_OCCURRENCES_PROTOCOL+":"+key.getName()+"' class='allStrongsRefsLink'>"+prompt+"</a>");
 
 						//convert text refs to links
 						osisToHtmlParameters.setConvertStrongsRefsToLinks(true);
 					}
 				}
-				
+
 				// which font, if any
 				osisToHtmlParameters.setFont(FontControl.getInstance().getFontForBook(book));
 				osisToHtmlParameters.setCssClassForCustomFont(FontControl.getInstance().getCssClassForCustomFont(book));
-				
+
 				// indent depth - larger screens have a greater indent
 				osisToHtmlParameters.setIndentDepth(CommonUtils.getResourceInteger(R.integer.poetry_indent_chars));
 			}
 		}
 		return new OsisToHtmlSaxHandler(osisToHtmlParameters);
-	}
-	
-	public static void setAndroid(boolean isAndroid) {
-		SwordContentFacade.isAndroid = isAndroid;
 	}
 
 	/**

@@ -1,10 +1,10 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-import com.bellman.bible.service.common.Constants;
+import com.bellman.bible.service.common.Constants.HTML;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.OSISUtil;
@@ -22,22 +22,16 @@ import org.xml.sax.Attributes;
  */
 public class VerseHandler implements OsisTagHandler {
 
-	private BookmarkMarker bookmarkMarker;
-
-	private MyNoteMarker myNoteMarker;
-
-	private OsisToHtmlParameters parameters;
-
-	private OsisToHtmlSaxHandler.VerseInfo verseInfo;
-
-	private int writerRollbackPosition;
-
-	private HtmlTextWriter writer;
-
 	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("VerseHandler");
+	private BookmarkMarker bookmarkMarker;
+	private MyNoteMarker myNoteMarker;
+	private OsisToHtmlParameters parameters;
+	private VerseInfo verseInfo;
+	private int writerRollbackPosition;
+	private HtmlTextWriter writer;
 
-	public VerseHandler(OsisToHtmlParameters parameters, OsisToHtmlSaxHandler.VerseInfo verseInfo, BookmarkMarker bookmarkMarker, MyNoteMarker myNoteMarker, HtmlTextWriter writer) {
+	public VerseHandler(OsisToHtmlParameters parameters, VerseInfo verseInfo, BookmarkMarker bookmarkMarker, MyNoteMarker myNoteMarker, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.verseInfo = verseInfo;
 		this.bookmarkMarker = bookmarkMarker;
@@ -121,7 +115,7 @@ public class VerseHandler implements OsisTagHandler {
 	private String getVerseNumberHtml(int verseNo) {
 		StringBuilder verseNoSB = new StringBuilder();
 		if (parameters.isShowVerseNumbers() && verseNo!=0) {
-			verseNoSB.append("<span class='verseNo'>").append(verseNo).append("</span>").append(Constants.HTML.NBSP);
+			verseNoSB.append("<span class='verseNo'>").append(verseNo).append("</span>").append(HTML.NBSP);
 		} else {
 			// we really want an empty span but that is illegal and causes problems such as incorrect verse calculation in Psalms
 			// so use something that will hopefully interfere as little as possible - a zero-width-space

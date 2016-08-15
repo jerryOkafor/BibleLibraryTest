@@ -1,6 +1,5 @@
 package com.bellman.bible.service.download;
 
-
 import com.bellman.bible.service.sword.AcceptableBookTypeFilter;
 
 import org.crosswire.jsword.book.Book;
@@ -21,8 +20,8 @@ public class IBTRepo extends RepoBase {
 	private static final String REPOSITORY = "IBT";
 	
 	private static BookFilter SUPPORTED_DOCUMENTS = new AcceptableBookTypeFilter();
-	
-	/** get a list of books that are available in default repo and seem to work in And Bible
+
+	/** get a list of books that are available in default repo and seem to work in Embedded Bible
 	 */
 	public List<Book> getRepoBooks(boolean refresh) throws InstallException {
 

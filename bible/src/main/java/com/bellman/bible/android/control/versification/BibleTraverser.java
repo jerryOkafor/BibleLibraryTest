@@ -1,8 +1,7 @@
 package com.bellman.bible.android.control.versification;
 
-
-import com.bellman.bible.android.control.nav.DocumentBibleBooks;
-import com.bellman.bible.android.control.nav.DocumentBibleBooksFactory;
+import com.bellman.bible.android.control.navigation.DocumentBibleBooks;
+import com.bellman.bible.android.control.navigation.DocumentBibleBooksFactory;
 
 import org.crosswire.jsword.book.basic.AbstractPassageBook;
 import org.crosswire.jsword.passage.Verse;
@@ -141,7 +140,7 @@ public class BibleTraverser {
 	 */
 	private BibleBook getNextBook(AbstractPassageBook document, Versification v11n, BibleBook book) {
 		boolean isCurrentlyScripture = Scripture.isScripture(book);
-		DocumentBibleBooks documentBibleBooks = documentBibleBooksFactory.getDocumentBibleBooksFor(document);
+		DocumentBibleBooks documentBibleBooks = documentBibleBooksFactory.getDocumentBibleBooksFor(document);   
 		BibleBook nextBook = book;
 		do {
 			nextBook = v11n.getNextBook(nextBook);

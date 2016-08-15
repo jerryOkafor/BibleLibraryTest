@@ -5,7 +5,6 @@ import org.crosswire.jsword.book.BookException;
 import org.crosswire.jsword.book.BookFilter;
 import org.crosswire.jsword.book.install.InstallException;
 import org.crosswire.jsword.book.sword.SwordBook;
-import org.crosswire.jsword.book.sword.SwordBookMetaData;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ public abstract class RepoBase {
 
 	public abstract List<Book> getRepoBooks(boolean refresh) throws InstallException;
 	public abstract String getRepoName();
-	
-	/** get a list of books that are available in Xiphos repo and seem to work in And Bible
+
+	/** get a list of books that are available in Xiphos repo and seem to work in Embedded Bible
 	 */
 	public List<Book> getBookList(BookFilter bookFilter, boolean refresh) throws InstallException {
 		
@@ -34,13 +33,13 @@ public abstract class RepoBase {
 			// SwordBookMetaData must not persist these properties because many downloadable books may have the same name, 
 			// and we set the props every time so they do not need to be persisted
 			if (book instanceof SwordBook) {
-				((SwordBookMetaData)book.getBookMetaData()).setProperty(DownloadManager.REPOSITORY_KEY, getRepoName());
+				book.getBookMetaData().setProperty(DownloadManager.REPOSITORY_KEY, getRepoName());
 			} else {
 				book.getBookMetaData().putProperty(DownloadManager.REPOSITORY_KEY, getRepoName());
 			}
         }
 	}
-	
+
 	public void downloadDocument(Book document) throws InstallException, BookException {
 		DownloadManager downloadManager = new DownloadManager();
 		downloadManager.installBook(getRepoName(), document);

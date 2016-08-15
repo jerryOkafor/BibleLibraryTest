@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The main menu accessed via Menu key
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appcompat="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/myNoteAddEdit"
+        android:icon="@drawable/ic_pen_24dp"
+        android:title="@string/mynote_add"
+        appcompat:showAsAction="always" />
+
+    <!-- Either add or delete bookmark will be hidden -->
+    <item
+        android:id="@+id/add_bookmark"
+        android:icon="@drawable/ic_bookmark_24dp"
+        android:title="@string/add_bookmark"
+        appcompat:showAsAction="always" />
+
+    <item
+        android:id="@+id/delete_bookmark"
+        android:icon="@drawable/ic_bookmark_delete_24dp"
+        android:title="@string/delete_bookmark"
+        appcompat:showAsAction="always" />
+
+    <item
+        android:id="@+id/compareTranslations"
+        android:icon="@drawable/ic_compare_24dp"
+        android:title="@string/compare_translations"
+        appcompat:showAsAction="always" />
+
+    <item
+        android:id="@+id/shareVerse"
+        android:icon="@drawable/ic_share_24dp"
+        android:title="@string/share_verse"
+        appcompat:showAsAction="ifRoom" />
+
+    <!-- Footnotes and references -->
+    <item
+        android:id="@+id/notes"
+        android:title="@string/notes" />
+
+    <item
+        android:id="@+id/copy"
+        android:title="@string/copy" />
+
+</menu>

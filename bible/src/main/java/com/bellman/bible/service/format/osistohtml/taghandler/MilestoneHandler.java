@@ -1,12 +1,12 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
-import com.bellman.bible.service.common.Constants;
+import com.bellman.bible.service.common.Constants.HTML;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OSISUtil2;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
-import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.PassageInfo;
+import com.bellman.bible.service.format.osistohtml.osishandlers.OsisToHtmlSaxHandler.VerseInfo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.OSISUtil;
@@ -33,8 +33,8 @@ import org.xml.sax.Attributes;
  * Example from KJV Gen 1:6
  * <verse osisID='Gen.1.6'><milestone marker="¶" type="x-p" /><w lemma="strong:H0430">And God</w>
 
- * 
- * Example from NETtext Mt 4:14
+ *
+ * Example from com.bellmantext Mt 4:14
 
  * @author Martin Denham [mjdenham at gmail dot com]
  * @see gnu.lgpl.License for license details.<br>
@@ -42,19 +42,15 @@ import org.xml.sax.Attributes;
  */
 public class MilestoneHandler implements OsisTagHandler {
 
+	private static final String HTML_QUOTE_ENTITY = "&quot;";
+	private static final Logger log = new Logger("OsisToHtmlSaxHandler");
 	private HtmlTextWriter writer;
-
 	@SuppressWarnings("unused")
 	private OsisToHtmlParameters parameters;
-	
-	private OsisToHtmlSaxHandler.PassageInfo passageInfo;
-	private OsisToHtmlSaxHandler.VerseInfo verseInfo;
-	
-	private static final String HTML_QUOTE_ENTITY = "&quot;";
-	
-	private static final Logger log = new Logger("OsisToHtmlSaxHandler");
+	private PassageInfo passageInfo;
+	private VerseInfo verseInfo;
 
-	public MilestoneHandler(OsisToHtmlParameters parameters, OsisToHtmlSaxHandler.PassageInfo passageInfo, OsisToHtmlSaxHandler.VerseInfo verseInfo, HtmlTextWriter writer) {
+	public MilestoneHandler(OsisToHtmlParameters parameters, PassageInfo passageInfo, VerseInfo verseInfo, HtmlTextWriter writer) {
 		this.parameters = parameters;
 		this.passageInfo = passageInfo;
 		this.verseInfo = verseInfo;
@@ -75,7 +71,7 @@ public class MilestoneHandler implements OsisTagHandler {
 				case "line":
 					if (passageInfo.isAnyTextWritten) {
 						// if no verse text has yet been written then place the BR before the verse number
-						writer.writeOptionallyBeforeVerse(Constants.HTML.BR, verseInfo);
+						writer.writeOptionallyBeforeVerse(HTML.BR, verseInfo);
 					}
 					break;
 				case "cQuote":

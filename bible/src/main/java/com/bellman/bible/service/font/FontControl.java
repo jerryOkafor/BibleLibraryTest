@@ -1,9 +1,9 @@
 package com.bellman.bible.service.font;
 
-import com.bellman.bible.SharedConstants;
 import com.bellman.bible.service.common.CommonUtils;
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.download.GenericFileDownloader;
+import com.bellman.bible.util.SharedConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.jsword.book.Book;
@@ -21,28 +21,26 @@ import java.util.Properties;
  */
 public class FontControl {
 
-    private Properties fontProperties = new Properties(); 
-    
     private static final String FONT_DOWNLOAD_URL = "http://www.crosswire.org/and-bible/fonts/v1/";
-    public static String FONT_PROPERTIES_FILENAME = "fonts.properties";
-    private static String FONT_SIZE_ADJUSTMENT = ".fontSizeAdjustment";
-    private static String CSS_CLASS = ".cssClass";
+	private static final Logger log = new Logger(FontControl.class.getName());
+	public static String FONT_PROPERTIES_FILENAME = "fonts.properties";
+	private static String FONT_SIZE_ADJUSTMENT = ".fontSizeAdjustment";
+	private static String CSS_CLASS = ".cssClass";
     
     private static FontControl SINGLETON = new FontControl();
-    
-	private static final Logger log = new Logger(FontControl.class.getName());
-    
-    private FontControl() {
-    	loadFontProperties();
-    }
-    
-    public void reloadProperties() {
-    	loadFontProperties();
-    }
+	private Properties fontProperties = new Properties();
+
+	private FontControl() {
+		loadFontProperties();
+	}
     
     public static FontControl getInstance() {
     	return SINGLETON;
-    }
+	}
+
+	public void reloadProperties() {
+		loadFontProperties();
+	}
 
 	public String getFontForBook(Book book) {
 		String font = null;

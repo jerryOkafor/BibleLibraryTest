@@ -1,63 +1,48 @@
 package com.bellman.bible.android.control;
 
-//import net.bible.android.common.resource.AndroidResourceProvider;
-//import net.bible.android.common.resource.ResourceProvider;
-//import net.bible.android.control.backup.BackupControl;
-//import net.bible.android.control.bookmark.Bookmark;
-//import net.bible.android.control.bookmark.BookmarkControl;
-//import net.bible.android.control.comparetranslations.CompareTranslationsControl;
-//import net.bible.android.control.document.DocumentControl;
-//import net.bible.android.control.download.DownloadControl;
-//import net.bible.android.control.email.Emailer;
-//import net.bible.android.control.email.EmailerImpl;
-//import net.bible.android.control.event.ABEventBus;
-//import net.bible.android.control.event.EventManager;
-//import net.bible.android.control.footnoteandref.FootnoteAndRefControl;
-//import net.bible.android.control.link.LinkControl;
-//import net.bible.android.control.mynote.MyNote;
-//import net.bible.android.control.mynote.MyNoteControl;
-//import net.bible.android.control.navigation.DocumentBibleBooksFactory;
-//import net.bible.android.control.navigation.NavigationControl;
-//import net.bible.android.control.page.CurrentPageManager;
-//import net.bible.android.control.page.PageControl;
-//import net.bible.android.control.page.PageTiltScrollControl;
-//import net.bible.android.control.page.window.Window;
-//import net.bible.android.control.page.window.WindowControl;
-//import net.bible.android.control.page.window.WindowRepository;
-//import net.bible.android.control.readingplan.ReadingPlanControl;
-//import net.bible.android.control.report.ErrorReportControl;
-//import net.bible.android.control.search.SearchControl;
-//import net.bible.android.control.speak.SpeakControl;
-//import net.bible.android.control.versification.BibleTraverser;
-//import net.bible.android.view.activity.page.BibleJavascriptInterface;
-//import net.bible.android.view.activity.page.BibleView;
-//import net.bible.android.view.activity.page.BibleActivity;
-//import net.bible.android.view.activity.page.VerseActionModeMediator;
-//import net.bible.android.view.activity.page.VerseCalculator;
-//import net.bible.android.view.activity.page.VerseMenuCommandHandler;
-//
-//import java.util.HashMap;
-//import java.util.Map;
+import android.content.Context;
 
-//TODO replace with ioc (maybe)
-
-import com.bellman.bible.android.BibleActivity;
-import com.bellman.bible.android.control.document.BibleJavascriptInterface;
+import com.bellman.bible.android.common.resource.AndroidResourceProvider;
+import com.bellman.bible.android.common.resource.ResourceProvider;
+import com.bellman.bible.android.control.backup.BackupControl;
+import com.bellman.bible.android.control.bookmark.Bookmark;
+import com.bellman.bible.android.control.bookmark.BookmarkControl;
+import com.bellman.bible.android.control.comparetranslations.CompareTranslationsControl;
 import com.bellman.bible.android.control.document.DocumentControl;
-import com.bellman.bible.android.control.document.VerseActionModeMediator;
 import com.bellman.bible.android.control.download.DownloadControl;
+import com.bellman.bible.android.control.email.Emailer;
+import com.bellman.bible.android.control.email.EmailerImpl;
 import com.bellman.bible.android.control.event.ABEventBus;
 import com.bellman.bible.android.control.event.EventManager;
-import com.bellman.bible.android.control.nav.DocumentBibleBooksFactory;
+import com.bellman.bible.android.control.footnoteandref.FootnoteAndRefControl;
+import com.bellman.bible.android.control.link.LinkControl;
+import com.bellman.bible.android.control.mynote.MyNote;
+import com.bellman.bible.android.control.mynote.MyNoteControl;
+import com.bellman.bible.android.control.navigation.DocumentBibleBooksFactory;
+import com.bellman.bible.android.control.navigation.NavigationControl;
 import com.bellman.bible.android.control.page.CurrentPageManager;
 import com.bellman.bible.android.control.page.PageControl;
+import com.bellman.bible.android.control.page.PageTiltScrollControl;
+import com.bellman.bible.android.control.page.window.Window;
+import com.bellman.bible.android.control.page.window.WindowControl;
+import com.bellman.bible.android.control.page.window.WindowRepository;
+import com.bellman.bible.android.control.readingplan.ReadingPlanControl;
+import com.bellman.bible.android.control.report.ErrorReportControl;
+import com.bellman.bible.android.control.search.SearchControl;
+import com.bellman.bible.android.control.speak.SpeakControl;
 import com.bellman.bible.android.control.versification.BibleTraverser;
-import com.bellman.bible.android.control.window.Window;
-import com.bellman.bible.android.control.window.WindowControl;
-import com.bellman.bible.android.control.window.WindowRepository;
-import com.bellman.bible.android.view.BibleView;
-import com.bellman.bible.android.view.VerseCalculator;
-import com.bellman.bible.android.view.page.VerseMenuCommandHandler;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
+import com.bellman.bible.android.view.activity.page.BibleJavascriptInterface;
+import com.bellman.bible.android.view.activity.page.BibleView;
+import com.bellman.bible.android.view.activity.page.MainBibleActivity;
+import com.bellman.bible.android.view.activity.page.VerseActionModeMediator;
+import com.bellman.bible.android.view.activity.page.VerseCalculator;
+import com.bellman.bible.android.view.activity.page.VerseMenuCommandHandler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+//TODO replace with ioc (maybe)
 
 /** allow access to control layer
  *
@@ -66,37 +51,36 @@ import com.bellman.bible.android.view.page.VerseMenuCommandHandler;
  *      The copyright to this program is held by it's author.
  */
 public class ControlFactory {
-	private BibleActivity mainBibleActivity;
-//	private ResourceProvider resourceProvider;
+	private static ControlFactory singleton;
+	private MainBibleActivity mainBibleActivity;
+	private ResourceProvider resourceProvider;
 	private EventManager eventManager;
-//
+	private Context context;
 	private WindowRepository windowRepository;
 	private DocumentBibleBooksFactory documentBibleBooksFactory = new DocumentBibleBooksFactory();
 	private BibleTraverser bibleTraverser = new BibleTraverser();
 	private DocumentControl documentControl = new DocumentControl();
 	private PageControl pageControl = new PageControl();
 	private WindowControl windowControl;
-//	private Map<Window, PageTiltScrollControl> screenPageTiltScrollControlMap = new HashMap<>();
-//	private LinkControl linkControl;
-//	private SearchControl searchControl = new SearchControl();
-//	private MyNote mynoteControl = new MyNoteControl();
+	private Map<Window, PageTiltScrollControl> screenPageTiltScrollControlMap = new HashMap<>();
+	private LinkControl linkControl;
+	private SearchControl searchControl = new SearchControl();
+	private MyNote mynoteControl = new MyNoteControl();
 	private DownloadControl downloadControl = new DownloadControl();
-//	private SpeakControl speakControl = new SpeakControl();
-//	private ReadingPlanControl readingPlanControl = new ReadingPlanControl();
-//	private CompareTranslationsControl compareTranslationsControl;
-//	private FootnoteAndRefControl footnoteAndRefControl;
-//	private BackupControl backupControl = new BackupControl();
-//	private Bookmark bookmarkControl;
-
-//	private Emailer emailer;
-//	private ErrorReportControl errorReportControl;
-//
-//	private NavigationControl navigationControl = new NavigationControl();
-	
+	private SpeakControl speakControl = new SpeakControl();
+	private ReadingPlanControl readingPlanControl = new ReadingPlanControl();
+	private CompareTranslationsControl compareTranslationsControl;
+	private FootnoteAndRefControl footnoteAndRefControl;
+	private BackupControl backupControl = new BackupControl();
+	private Bookmark bookmarkControl;
+	private Emailer emailer;
+	private ErrorReportControl errorReportControl;
+	private NavigationControl navigationControl = new NavigationControl();
 	private boolean initialised = false;
-	
-	private static ControlFactory singleton;
-	
+
+	protected ControlFactory() {
+	}
+
 	public static ControlFactory getInstance() {
 		if (singleton==null) {
 			synchronized(ControlFactory.class) {
@@ -108,86 +92,84 @@ public class ControlFactory {
 		}
 		return singleton;
 	}
+
 	public static void setInstance(ControlFactory controlFactory) {
 		singleton = controlFactory;
 	}
 	
-	protected ControlFactory() {
-	}
-	
 	protected void createAll() {
-//		resourceProvider = new AndroidResourceProvider();
+		resourceProvider = new AndroidResourceProvider();
 		eventManager = ABEventBus.getDefault();
 
-//		emailer = new EmailerImpl();
-//		errorReportControl = new ErrorReportControl(emailer);
-//
-//		bookmarkControl = new BookmarkControl(resourceProvider);
-//
-//		 inject dependencies
-//		readingPlanControl.setSpeakControl(this.speakControl);
-//
-//		navigationControl.setPageControl(this.pageControl);
-//		navigationControl.setDocumentBibleBooksFactory(documentBibleBooksFactory);
-//		searchControl.setDocumentBibleBooksFactory(documentBibleBooksFactory);
+		emailer = new EmailerImpl();
+		errorReportControl = new ErrorReportControl(emailer);
+
+		bookmarkControl = new BookmarkControl(CurrentActivityHolder.getInstance().getCurrentActivity().getApplicationContext(), resourceProvider);
+
+		// inject dependencies
+		readingPlanControl.setSpeakControl(this.speakControl);
+
+		navigationControl.setPageControl(this.pageControl);
+		navigationControl.setDocumentBibleBooksFactory(documentBibleBooksFactory);
+		searchControl.setDocumentBibleBooksFactory(documentBibleBooksFactory);
 		
 		bibleTraverser.setDocumentBibleBooksFactory(documentBibleBooksFactory);
 
-//		compareTranslationsControl = new CompareTranslationsControl(bibleTraverser);
-//		footnoteAndRefControl = new FootnoteAndRefControl(bibleTraverser);
+		compareTranslationsControl = new CompareTranslationsControl(bibleTraverser);
+		footnoteAndRefControl = new FootnoteAndRefControl(bibleTraverser);
 
 		windowRepository = new WindowRepository();
 		windowControl = new WindowControl(windowRepository, eventManager);
-		
-//		linkControl = new LinkControl(windowControl);
+
+		linkControl = new LinkControl(windowControl);
+	}
+
+	protected void ensureAllInitialised() {
+		if (!initialised) {
+			synchronized (this) {
+				if (!initialised) {
+					windowRepository.initialise(eventManager);
+					initialised = true;
+				}
+			}
+		}
 	}
 	
-//	protected void ensureAllInitialised() {
-//		if (!initialised) {
-//			synchronized(this) {
-//				if (!initialised) {
-//					windowRepository.initialise(eventManager);
-//					initialised = true;
-//				}
-//			}
-//		}
-//	}
-
 	public DocumentControl getDocumentControl() {
-//		ensureAllInitialised();
+		ensureAllInitialised();
 
 		return documentControl;		
 	}
 
-//	public DocumentBibleBooksFactory getDocumentBibleBooksFactory() {
-//		return documentBibleBooksFactory;
-//	}
-//
+	public DocumentBibleBooksFactory getDocumentBibleBooksFactory() {
+		return documentBibleBooksFactory;
+	}
+
 	public PageControl getPageControl() {
-//		ensureAllInitialised();
-		return pageControl;
+		ensureAllInitialised();
+		return pageControl;		
 	}
 
 	public WindowControl getWindowControl() {
-//		ensureAllInitialised();
+		ensureAllInitialised();
 		return windowControl;
 	}
 
-//	public PageTiltScrollControl getPageTiltScrollControl(Window window) {
-//		PageTiltScrollControl pageTiltScrollControl = screenPageTiltScrollControlMap.get(window);
-//		if (pageTiltScrollControl==null) {
-//			synchronized(screenPageTiltScrollControlMap) {
-//				pageTiltScrollControl = screenPageTiltScrollControlMap.get(window);
-//				if (pageTiltScrollControl==null) {
-//					pageTiltScrollControl = new PageTiltScrollControl();
-//					screenPageTiltScrollControlMap.put(window, pageTiltScrollControl);
-//				}
-//			}
-//		}
-//		return pageTiltScrollControl;
-//	}
+	public PageTiltScrollControl getPageTiltScrollControl(Window window) {
+		PageTiltScrollControl pageTiltScrollControl = screenPageTiltScrollControlMap.get(window);
+		if (pageTiltScrollControl == null) {
+			synchronized (screenPageTiltScrollControlMap) {
+				pageTiltScrollControl = screenPageTiltScrollControlMap.get(window);
+				if (pageTiltScrollControl == null) {
+					pageTiltScrollControl = new PageTiltScrollControl();
+					screenPageTiltScrollControlMap.put(window, pageTiltScrollControl);
+				}
+			}
+		}
+		return pageTiltScrollControl;
+	}
 
-	public void provide(BibleActivity mainBibleActivity) {
+	public void provide(MainBibleActivity mainBibleActivity) {
 		this.mainBibleActivity = mainBibleActivity;
 	}
 
@@ -203,61 +185,63 @@ public class ControlFactory {
 		bibleJavascriptInterface.setVerseCalculator(new VerseCalculator());
 	}
 
-//	public SearchControl getSearchControl() {
-//		return searchControl;
-//	}
-//
-	public CurrentPageManager getCurrentPageControl() {
-//		ensureAllInitialised();
-		Window activeWindow = windowControl.getActiveWindow();
-		return activeWindow.getPageManager();
+	public SearchControl getSearchControl() {
+		return searchControl;
 	}
 
-//	public LinkControl getLinkControl() {
-//		return linkControl;
-//	}
+	public CurrentPageManager getCurrentPageControl() {
+		ensureAllInitialised();
+		Window activeWindow = windowControl.getActiveWindow();
+		return activeWindow.getPageManager();		
+	}
 
-//	public Bookmark getBookmarkControl() {
-//		return bookmarkControl;
-//	}
-//
-//	public MyNote getMyNoteControl() {
-//		return mynoteControl;
-//	}
+	public LinkControl getLinkControl() {
+		return linkControl;
+	}
+
+	public Bookmark getBookmarkControl() {
+		return bookmarkControl;
+	}
+
+	public MyNote getMyNoteControl() {
+		return mynoteControl;
+	}
 
 	public DownloadControl getDownloadControl() {
 		return downloadControl;
 	}
 
-//	public SpeakControl getSpeakControl() {
-//		return speakControl;
-//	}
-//
-//	public ReadingPlanControl getReadingPlanControl() {
-//		return readingPlanControl;
-//	}
+	public SpeakControl getSpeakControl() {
+		return speakControl;
+	}
 
-//	public CompareTranslationsControl getCompareTranslationsControl() {
-//		return compareTranslationsControl;
-//	}
+	public ReadingPlanControl getReadingPlanControl() {
+		return readingPlanControl;
+	}
 
-//	public FootnoteAndRefControl getFootnoteAndRefControl() {
-//		return footnoteAndRefControl;
-//	}
-//
-//	public BackupControl getBackupControl() {
-//		return backupControl;
-//	}
-//
-//	public NavigationControl getNavigationControl() {
-//		return navigationControl;
-//	}
+	public CompareTranslationsControl getCompareTranslationsControl() {
+		return compareTranslationsControl;
+	}
+
+	public FootnoteAndRefControl getFootnoteAndRefControl() {
+		return footnoteAndRefControl;
+	}
+
+	public BackupControl getBackupControl() {
+		return backupControl;
+	}
+
+	public NavigationControl getNavigationControl() {
+		return navigationControl;
+	}
 
 	public BibleTraverser getBibleTraverser() {
 		return bibleTraverser;
 	}
-//
-//	public ErrorReportControl getErrorReportControl() {
-//		return errorReportControl;
-//	}
+
+	public ErrorReportControl getErrorReportControl() {
+		return errorReportControl;
+	}
+
+
 }

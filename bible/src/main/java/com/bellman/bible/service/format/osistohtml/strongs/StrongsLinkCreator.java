@@ -1,6 +1,5 @@
 package com.bellman.bible.service.format.osistohtml.strongs;
 
-
 import com.bellman.bible.service.format.osistohtml.preprocessor.TextPreprocessor;
 
 import java.util.regex.Matcher;

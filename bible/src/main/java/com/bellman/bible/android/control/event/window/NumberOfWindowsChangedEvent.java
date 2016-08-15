@@ -1,7 +1,6 @@
 package com.bellman.bible.android.control.event.window;
 
-
-import com.bellman.bible.android.control.window.Window;
+import com.bellman.bible.android.control.page.window.Window;
 
 import java.util.Map;
 

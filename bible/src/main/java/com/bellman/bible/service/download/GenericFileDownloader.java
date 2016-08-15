@@ -2,8 +2,7 @@ package com.bellman.bible.service.download;
 
 import android.util.Log;
 
-
-import com.bellman.bible.R;
+import com.bellman.bible.android.activity.R;
 import com.bellman.bible.service.common.CommonUtils;
 import com.bellman.bible.service.common.FileManager;
 

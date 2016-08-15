@@ -2,12 +2,11 @@ package com.bellman.bible.android.control;
 
 import android.util.Log;
 
-
 import com.bellman.bible.android.control.page.CurrentPage;
 import com.bellman.bible.android.control.page.UpdateTextTask;
-import com.bellman.bible.android.control.window.Window;
-import com.bellman.bible.android.view.DocumentView;
-import com.bellman.bible.android.view.DocumentViewManager;
+import com.bellman.bible.android.control.page.window.Window;
+import com.bellman.bible.android.view.activity.base.DocumentView;
+import com.bellman.bible.android.view.activity.page.screen.DocumentViewManager;
 import com.bellman.bible.service.common.CommonUtils;
 
 import org.crosswire.jsword.book.Book;
@@ -21,13 +20,11 @@ import org.crosswire.jsword.passage.Key;
  */
 public class BibleContentManager {
 
+	private static final String TAG = "BibleContentManager";
 	private DocumentViewManager documentViewManager;
-	
 	// previous document and verse (currently displayed on the screen)
 	private Book previousDocument;
 	private Key previousVerse;
-	
-	private static final String TAG = "BibleContentManager";
 	
 	public BibleContentManager(DocumentViewManager documentViewManager) {
 		this.documentViewManager = documentViewManager;
@@ -40,8 +37,11 @@ public class BibleContentManager {
     }
     
     /* package */ void updateText(boolean forceUpdate) {
-    	Window window = CommonUtils.getActiveWindow();
-    	CurrentPage currentPage = window.getPageManager().getCurrentPage();
+
+//		ControlFactory.getInstance().getCurrentPageControl().getCurrentPage()
+//				.setKey(new Verse(ControlFactory.getInstance().getNavigationControl().getVersification(), BibleBook.ACTS,2,3));
+		Window window = CommonUtils.getActiveWindow();
+		CurrentPage currentPage = window.getPageManager().getCurrentPage();
 		Book document = currentPage.getCurrentDocument();
 		Key key = currentPage.getKey();
 

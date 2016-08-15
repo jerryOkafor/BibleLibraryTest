@@ -124,7 +124,7 @@
   <string name="document_not_installed">\'%s\' жүктөп алыңыз.</string>
   <!--Install zip file-->
   <string name="install_zip">Zip файлды орнот</string>
-  <string name="install_zip_successfull">Модул орнотулду</string>
+  <string name="install_zip_successful">Модул орнотулду</string>
   <string name="extracting_zip_file">Zip файл окулуп жатат</string>
   <string name="checking_zip_file">Файл текшерилип жатат</string>
   <string name="invalid_module">SWORD модул табылган жок</string>
@@ -153,7 +153,7 @@
   <string name="notes">Түшүрмөлөр, шилтемелер</string>
   <string name="copy">көчүрүңүз</string>
   <string name="share_verse">Жөнөтүү …</string>
-  <string name="share_verse_subject">AND BIBLE дан сиз үчүн маалымат.</string>
+  <string name="share_verse_subject">Embedded Bible дан сиз үчүн маалымат.</string>
   <string name="compare_translations">Ар котормолордо</string>
   <!--Bookmarks-->
   <string name="bookmarks">Чөпкаттар</string>

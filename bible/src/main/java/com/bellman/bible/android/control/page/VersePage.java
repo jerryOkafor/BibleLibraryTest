@@ -2,7 +2,6 @@ package com.bellman.bible.android.control.page;
 
 import android.util.Log;
 
-
 import com.bellman.bible.android.control.PassageChangeMediator;
 import com.bellman.bible.android.control.versification.BibleTraverser;
 
@@ -21,11 +20,9 @@ import org.crosswire.jsword.versification.system.Versifications;
  */
 public abstract class VersePage extends CurrentPageBase {
 
-	private CurrentBibleVerse currentBibleVerse;
-	
-	private BibleTraverser bibleTraverser;
-
 	private static final String TAG = "CurrentPageBase";
+	private CurrentBibleVerse currentBibleVerse;
+	private BibleTraverser bibleTraverser;
 	
 	protected VersePage(boolean shareKeyBetweenDocs, CurrentBibleVerse currentVerse) {
 		super(shareKeyBetweenDocs);
@@ -51,12 +48,12 @@ public abstract class VersePage extends CurrentPageBase {
 		return currentBibleVerse;
 	}
 	
-	public void setBibleTraverser(BibleTraverser bibleTraverser) {
-		this.bibleTraverser = bibleTraverser;
-	}
-
 	protected BibleTraverser getBibleTraverser() {
 		return bibleTraverser;
+	}
+
+	public void setBibleTraverser(BibleTraverser bibleTraverser) {
+		this.bibleTraverser = bibleTraverser;
 	}
 
 	@Override

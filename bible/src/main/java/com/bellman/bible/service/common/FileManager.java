@@ -3,6 +3,8 @@ package com.bellman.bible.service.common;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.crosswire.common.util.IOUtil;
 
@@ -13,8 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import java.util.Properties;
-
-import app.Bible;
 
 /**
  * File related utility methods
@@ -86,7 +86,7 @@ public class FileManager {
 	public static Properties readPropertiesFile(String folder, String filename) {
 	    Properties returnProperties = new Properties();
 
-		Resources resources = Bible.getApplication().getResources();
+		Resources resources = CurrentActivityHolder.getInstance().getApplication().getResources();
 		AssetManager assetManager = resources.getAssets();
 		if (!filename.endsWith(DOT_PROPERTIES)) {
 			filename = filename+DOT_PROPERTIES;

@@ -1,7 +1,5 @@
 package com.bellman.bible.service.format.osistohtml.tei;
 
-
-
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
 import com.bellman.bible.service.format.osistohtml.taghandler.NoteHandler;

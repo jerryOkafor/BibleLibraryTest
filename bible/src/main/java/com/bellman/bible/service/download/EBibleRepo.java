@@ -1,6 +1,5 @@
 package com.bellman.bible.service.download;
 
-
 import com.bellman.bible.service.sword.AcceptableBookTypeFilter;
 
 import org.crosswire.jsword.book.Book;
@@ -18,12 +17,9 @@ import java.util.List;
 public class EBibleRepo extends RepoBase {
 
 	private static final String REPOSITORY = "eBible";
-	
-	private static BookFilter SUPPORTED_DOCUMENTS = new AcceptableBookTypeFilter();
-	
 	@SuppressWarnings("unused")
 	private static final String TAG = "EBibleRepo";
-	
+	private static BookFilter SUPPORTED_DOCUMENTS = new AcceptableBookTypeFilter();
 	
 	/** get a list of books that are available in AndBible repo
 	 */

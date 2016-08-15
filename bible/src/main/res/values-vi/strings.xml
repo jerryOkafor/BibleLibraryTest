@@ -131,7 +131,7 @@
   <string name="notes">Chú thích và tham chiếu</string>
   <string name="copy">Sao chép</string>
   <string name="share_verse">Chia sẻ …</string>
-  <string name="share_verse_subject">Một câu Kinh Thánh đã được chia sẻ với bạn đang sử dụng And Bible</string>
+  <string name="share_verse_subject">Một câu Kinh Thánh đã được chia sẻ với bạn đang sử dụng Embedded Bible</string>
   <string name="compare_translations">So sánh các bản dịch</string>
   <!--Bookmarks-->
   <string name="bookmarks">Đánh dấu</string>

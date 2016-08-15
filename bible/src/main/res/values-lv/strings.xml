@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!--Startup & Help-->
   <string name="splash_top_text">\"Un Dievs sacīja: \'Lai top gaisma\' un gaisma tapa.\" \nGenesis 1:03</string>
   <string name="help_text">Lai piekļūtu darbībām nospiediet MENU taustiņu\n\nPārvietojieties no vienas nodaļas uz otru izmantojot track-ball, D-pad vai uzsitot uz ekrāna ar pirkstu</string>
   <string name="help_text_long">Lietošana\nPārvietojieties no vienas nodaļas uz otru izmantojot track-ball, D-pad vai uzsitot uz ekrāna ar pirkstu\n\nLai piekļūtu darbībām nospiediet MENU taustiņu \n\nLai lejuplādētu vairāk dokumentus nospiediet Menu/Administrēšana/Lejuplādēt Dokumentus \n\nUzspiediet uz ekrāna un paturiet, Bībeles skatā, lai piekļūtu papildus darbībām ar aktīvo pantu. \nDokumentu sarakstā uzspiediet uz dokumenta un paturiet, lai dzēstu vai apskatītu papildinformāciju. \n\nBalss\nNospiediet Balss, lai piekļūtu izvēlnei un sāktu vai apturētu lasīšanu balsī.\n\nGrāmatzīmes\nGrāmatzīmes var pievienot izmantojot panta papildus darbības. Grāmatzīmju pārvaldniekam var piekļūt no pamatizvēlnes. Grāmatzīmju pārvaldnieka papildus darbības ļauj grupēt grāmatzīmes izmantojot atzīmes.</string>
   <string name="version_text">Versija %s</string>
-  <string name="no_sdcard_error">Lūdzu, ievietojiet SD karti un startējiet And Bible vēlreiz.</string>
+  <string name="no_sdcard_error">Lūdzu, ievietojiet SD karti un startējiet Embedded Bible vēlreiz.</string>
   <!--Main menu-->
   <string name="chooseBook">Dokuments</string>
   <string name="selectPassage">Fragments</string>
@@ -124,7 +124,7 @@
   <string name="document_not_installed">Lūdzu lejuplādējiet \'%s\'.</string>
   <!--Install zip file-->
   <string name="install_zip">Ielādēt dokumentu no Zip faila</string>
-  <string name="install_zip_successfull">Modulis ir veiksmīgi uzinstalēts</string>
+  <string name="install_zip_successful">Modulis ir veiksmīgi uzinstalēts</string>
   <string name="extracting_zip_file">Notiek Zip faila atvēršana</string>
   <string name="checking_zip_file">Pārbauda doto failu</string>
   <string name="invalid_module">Fails nesatur derīgu SWORD moduli</string>
@@ -153,7 +153,7 @@
   <string name="notes">Zemsvītras piezīmes un atsauces</string>
   <string name="copy">Kopēt</string>
   <string name="share_verse">Dalīties …</string>
-  <string name="share_verse_subject">Šo Bībeles pants Jums nosūtīts izmantojot And Bible</string>
+  <string name="share_verse_subject">Šo Bībeles pants Jums nosūtīts izmantojot Embedded Bible</string>
   <string name="compare_translations">Salīdzināt tulkojumus</string>
   <!--Bookmarks-->
   <string name="bookmarks">Grāmatzīmes</string>

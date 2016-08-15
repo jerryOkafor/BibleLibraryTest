@@ -1,7 +1,6 @@
 package com.bellman.bible.service.format.osistohtml.osishandlers;
 
 
-
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 
@@ -16,17 +15,15 @@ import org.xml.sax.helpers.DefaultHandler;
  *      The copyright to this program is held by it's author.
  */
 public class OsisSaxHandler extends DefaultHandler {
-    
-    // debugging
-    private boolean isDebugMode = false;
 
-    private HtmlTextWriter writer;
-    
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("OsisSaxHandler");
-    
-    public OsisSaxHandler() {
-        writer = new HtmlTextWriter();
+	// debugging
+	private boolean isDebugMode = false;
+	private HtmlTextWriter writer;
+
+	public OsisSaxHandler() {
+		writer = new HtmlTextWriter();
     }
 
     /*

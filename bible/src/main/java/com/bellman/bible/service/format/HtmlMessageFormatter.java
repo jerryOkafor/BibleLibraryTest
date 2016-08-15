@@ -1,9 +1,8 @@
 package com.bellman.bible.service.format;
 
-
-import com.bellman.bible.SharedConstants;
-
-import app.Bible;
+import com.bellman.bible.android.view.activity.base.CurrentActivityHolder;
+import com.bellman.bible.service.device.ScreenSettings;
+import com.bellman.bible.util.SharedConstants;
 
 /** prepare an error message for display in a WebView
  * 
@@ -26,23 +25,23 @@ public class HtmlMessageFormatter {
 	/** wrap text with nightmode css if required
 	 */
 	public static String format(int msgId) {
-    	String errorMsg = Bible.getApplication().getResources().getString(msgId);
-    	return format(errorMsg);
+		String errorMsg = CurrentActivityHolder.getInstance().getApplication().getResources().getString(msgId);
+		return format(errorMsg);
 	}
 	
 	/** wrap text with nightmode css if required
 	 */
 	public static String format(String text) {
-//		boolean isNightMode = ScreenSettings.isNightMode();
+		boolean isNightMode = ScreenSettings.isNightMode();
 		
 		String formattedText = "";
 		
 		// only require special formatting for nightmode
-//		if (!isNightMode) {
+		if (!isNightMode) {
 			formattedText = text;
-//		} else {
-//			formattedText = NIGHT_HEADER+text+NIGHT_FOOTER;
-//		}
+		} else {
+			formattedText = NIGHT_HEADER + text + NIGHT_FOOTER;
+		}
 		return formattedText;
 	}
 }

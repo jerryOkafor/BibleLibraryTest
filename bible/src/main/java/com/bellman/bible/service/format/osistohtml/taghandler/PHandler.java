@@ -1,6 +1,5 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
@@ -16,13 +15,11 @@ import org.xml.sax.Attributes;
  */
 public class PHandler implements OsisTagHandler {
 
-	private HtmlTextWriter writer;
-	
-	@SuppressWarnings("unused")
-	private OsisToHtmlParameters parameters;
-	
 	@SuppressWarnings("unused")
 	private static final Logger log = new Logger("LHandler");
+	private HtmlTextWriter writer;
+	@SuppressWarnings("unused")
+	private OsisToHtmlParameters parameters;
 
 	public PHandler(OsisToHtmlParameters parameters, HtmlTextWriter writer) {
 		this.parameters = parameters;

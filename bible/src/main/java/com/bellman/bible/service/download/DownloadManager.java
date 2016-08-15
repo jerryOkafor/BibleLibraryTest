@@ -7,7 +7,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
- * The License is available on the internet at:
+ * The License is available on the intercom.bellman at:
  *       http://www.gnu.org/copyleft/lgpl.html
  * or by writing to:
  *      Free Software Foundation, Inc.
@@ -21,9 +21,8 @@
  */
 package com.bellman.bible.service.download;
 
-
-import android.widget.Toast;
-
+import com.bellman.bible.android.activity.R;
+import com.bellman.bible.android.view.activity.base.Dialogs;
 import com.bellman.bible.service.common.Logger;
 
 import org.crosswire.jsword.book.Book;
@@ -53,9 +52,51 @@ public class DownloadManager {
 	public static final String REPOSITORY_KEY = "repository";
 
     private static final Logger log = new Logger(DownloadManager.class.getName());
-    
+    private InstallManager installManager;
+
     public DownloadManager() {
         installManager = new InstallManager();
+    }
+
+    /**
+     * Get a list of all installed books.
+     *
+     * @return the list of installed books
+     */
+    public static List<Book> getInstalledBooks() {
+        return Books.installed().getBooks();
+    }
+
+    /**
+     * Get a list of installed books by BookFilter.
+     *
+     * @param filter The book filter
+     * @see BookFilter
+     * @see Books
+     */
+    public static List<Book> getInstalledBooks(BookFilter filter) {
+        return Books.installed().getBooks(filter);
+    }
+
+    /**
+     * Get a list of books by CustomFilter specification
+     *
+     * @param filterSpec The filter string
+     * @see BookFilters#getCustom(String)
+     * @see Books
+     */
+    public static List<Book> getInstalledBooks(String filterSpec) {
+        return getInstalledBooks(BookFilters.getCustom(filterSpec));
+    }
+
+    /**
+     * Get a particular installed book by initials.
+     *
+     * @param bookInitials The book name to search for
+     * @return The found book. Null otherwise.
+     */
+    public static Book getInstalledBook(String bookInitials) {
+        return Books.installed().getBook(bookInitials);
     }
 
 	/**
@@ -65,29 +106,29 @@ public class DownloadManager {
 	public List<Book> getDownloadableBooks(BookFilter filter, String repo, boolean refresh) throws InstallException {
 
 		List<Book> documents = new ArrayList<Book>();
-		
+
 		Installer installer = null;
 		try {
 	        // If we know the name of the installer we can get it directly
 	        installer = installManager.getInstaller(repo);
-	        
+
 	        if (installer==null) {
 				log.error("Error getting installer for repo "+repo);
-//				Dialogs.getInstance().showErrorMsg(R.string.error_occurred, new Exception("Error getting installer for repo "+repo));
-				documents = Collections.emptyList();
-	        } else {
-		        // Now we can get the list of books
-		    	log.debug("getting downloadable books");
+                Dialogs.getInstance().showErrorMsg(R.string.error_occurred, new Exception("Error getting installer for repo " + repo));
+                documents = Collections.emptyList();
+            } else {
+                // Now we can get the list of books
+                log.debug("getting downloadable books");
 		    	if (refresh || installer.getBooks().size()==0) {
 		    		//todo should warn user of implications of downloading book list e.g. from persecuted country
 		    		log.warn("Reloading book list");
 		    		installer.reloadBookList();
 		    	}
-		
+
 		        // Get a list of all the available books
 		        documents = installer.getBooks(filter); //$NON-NLS-1$
 	        }
-	
+
 		} catch (Exception e) {
 			// ignore error because some minor repos are unreliable
 			log.error("Fatal error downloading books from "+repo);
@@ -104,10 +145,10 @@ public class DownloadManager {
     	log.info("number of documents available:"+documents.size());
 		return documents;
 	}
-	
+
     /**
      * Install a book, overwriting it if the book to be installed is newer.
-     * 
+     *
      * @param repositoryName
      *            the name of the repository from which to get the book
      * @param book
@@ -139,7 +180,7 @@ public class DownloadManager {
 
                     installer.install(book);
                 } catch (InstallException ex) {
-//                    Dialogs.getInstance().showErrorMsg(R.string.error_occurred, ex);
+                    Dialogs.getInstance().showErrorMsg(R.string.error_occurred, ex);
                 }
             }
         };
@@ -150,7 +191,7 @@ public class DownloadManager {
 
     /**
      * Install a book, overwriting it if the book to be installed is newer.
-     * 
+     *
      * @param repositoryName
      *            the name of the repository from which to get the book
      * @param book
@@ -168,9 +209,9 @@ public class DownloadManager {
 
     /**
      * Unregister a book from Sword registry.
-     * 
-     * This used to delete the book but there is an mysterious bug in deletion (see below). 
-     * 
+     *
+     * This used to delete the book but there is an mysterious bug in deletion (see below).
+     *
      * @param book
      *            the book to delete
      * @throws BookException
@@ -193,57 +234,13 @@ public class DownloadManager {
 
     /**
      * Get a list of all known installers.
-     * 
+     *
      * @return the list of installers
      */
     public Map<String, Installer> getInstallers() {
         // Ask the Install Manager for a map of all known remote repositories
         // sites
         return installManager.getInstallers();
-    }
-
-    /**
-     * Get a list of all installed books.
-     * 
-     * @return the list of installed books
-     */
-    public static List<Book> getInstalledBooks() {
-        return Books.installed().getBooks();
-    }
-
-    /**
-     * Get a list of installed books by BookFilter.
-     * 
-     * @param filter
-     *            The book filter
-     * @see BookFilter
-     * @see Books
-     */
-    public static List<Book> getInstalledBooks(BookFilter filter) {
-        return Books.installed().getBooks(filter);
-    }
-
-    /**
-     * Get a list of books by CustomFilter specification
-     * 
-     * @param filterSpec
-     *            The filter string
-     * @see BookFilters#getCustom(String)
-     * @see Books
-     */
-    public static List<Book> getInstalledBooks(String filterSpec) {
-        return getInstalledBooks(BookFilters.getCustom(filterSpec));
-    }
-
-    /**
-     * Get a particular installed book by initials.
-     *
-     * @param bookInitials
-     *            The book name to search for
-     * @return The found book. Null otherwise.
-     */
-    public static Book getInstalledBook(String bookInitials) {
-        return Books.installed().getBook(bookInitials);
     }
 
     /**
@@ -282,7 +279,7 @@ public class DownloadManager {
 
     /**
      * Get a particular installed book by initials.
-     * 
+     *
      * @param bookInitials
      *            The book name to search for
      * @return The found book. Null otherwise.
@@ -293,7 +290,7 @@ public class DownloadManager {
 
     /**
      * Reload the local cache for a remote repository.
-     * 
+     *
      * @param repositoryName
      * @throws InstallException
      */
@@ -303,7 +300,7 @@ public class DownloadManager {
 
     /**
      * Get a Book from the repository. Note this does not install it.
-     * 
+     *
      * @param repositoryName
      *            the repository from which to get the book
      * @param bookName
@@ -313,7 +310,4 @@ public class DownloadManager {
     public Book getBook(String repositoryName, String bookName) {
         return installManager.getInstaller(repositoryName).getBook(bookName);
     }
-
-
-    private InstallManager installManager;
 }

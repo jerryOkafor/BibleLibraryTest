@@ -1,12 +1,11 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 import com.bellman.bible.service.format.osistohtml.OsisToHtmlParameters;
 
 import org.xml.sax.Attributes;
 
-/** The lg or "line group" element is used to contain any group of poetic lines.  Poetic lines are handled at the line level by And Bible, not line group 
+/** The lg or "line group" element is used to contain any group of poetic lines.  Poetic lines are handled at the line level by Embedded Bible, not line group
  * so this class does nothing.
  * 
  * @author Martin Denham [mjdenham at gmail dot com]

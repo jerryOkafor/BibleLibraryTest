@@ -1,7 +1,6 @@
 package com.bellman.bible.service.format.osistohtml.osishandlers;
 
 
-
 import com.bellman.bible.service.common.Logger;
 import com.bellman.bible.service.format.osistohtml.taghandler.TagHandlerHelper;
 
@@ -18,22 +17,19 @@ import java.util.Stack;
  *      The copyright to this program is held by it's author.
  */
 public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
-    
-    @SuppressWarnings("unused")
-	private int currentVerseNo;
 
-    private Stack<CONTENT_STATE> writeContentStack = new Stack<CONTENT_STATE>(); 
-	private enum CONTENT_STATE {WRITE, IGNORE};
-    
 	private static final Logger log = new Logger("OsisToCanonicalTextSaxHandler");
-    
+	@SuppressWarnings("unused")
+	private int currentVerseNo;
+	private Stack<CONTENT_STATE> writeContentStack = new Stack<CONTENT_STATE>();
+
     public OsisToCanonicalTextSaxHandler() {
         super();
     }
 
-    @Override
-    public void startDocument () {
-    	reset();
+	@Override
+	public void startDocument() {
+		reset();
     	// default mode is to write
     	writeContentStack.push(CONTENT_STATE.WRITE);
     }
@@ -45,7 +41,7 @@ public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
     public void endDocument() {
     	// pop initial value
     	writeContentStack.pop();
-    	
+
     	// assert
     	if (!writeContentStack.isEmpty()) {
     		log.warn("OsisToCanonicalTextSaxHandler context stack should now be empty");
@@ -87,7 +83,7 @@ public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
 		} else if (	name.equals(OSISUtil.OSIS_ELEMENT_L) ||
 					name.equals(OSISUtil.OSIS_ELEMENT_LB) ||
 					name.equals(OSISUtil.OSIS_ELEMENT_P) ) {
-			// these occur in Psalms to separate different paragraphs.  
+			// these occur in Psalms to separate different paragraphs.
 			// A space is needed for TTS not to be confused by punctuation with a missing space like 'toward us,and the'
 			write(" ");
 			//if writing then continue.  Also if ignoring then continue
@@ -97,7 +93,7 @@ public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
 			writeContentStack.push(writeContentStack.peek());
 		}
 	}
-    
+
     /*
      * Called when the Ending of the current Element is reached. For example in the
      * above explanation, this method is called when </Title> tag is reached
@@ -115,7 +111,7 @@ public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
 			// which looks bad and confuses TTS
 			write(" ");
 		}
-		
+
 		// now this tag has ended pop the write/ignore state for the parent tag
 		writeContentStack.pop();
 	}
@@ -127,17 +123,19 @@ public class OsisToCanonicalTextSaxHandler extends OsisSaxHandler {
     public void characters (char buf[], int offset, int len) {
         if (CONTENT_STATE.WRITE.equals(writeContentStack.peek())) {
         	String s = new String(buf, offset, len);
-        	
-            write(s);
-        }
+
+			write(s);
+		}
+	}
+
+	protected void writeContent(boolean writeContent) {
+		if (writeContent) {
+			writeContentStack.push(CONTENT_STATE.WRITE);
+		} else {
+			writeContentStack.push(CONTENT_STATE.IGNORE);
+		}
     }
 
-    protected void writeContent(boolean writeContent) {
-    	if (writeContent) {
-    		writeContentStack.push(CONTENT_STATE.WRITE);    		
-    	} else {
-    		writeContentStack.push(CONTENT_STATE.IGNORE);
-    	}
-    }
+	private enum CONTENT_STATE {WRITE, IGNORE}
 }
 

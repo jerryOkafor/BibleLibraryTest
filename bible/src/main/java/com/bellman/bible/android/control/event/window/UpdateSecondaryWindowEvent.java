@@ -1,7 +1,6 @@
 package com.bellman.bible.android.control.event.window;
 
-
-import com.bellman.bible.android.control.window.Window;
+import com.bellman.bible.android.control.page.window.Window;
 
 /**
  * Active window has changed and the windows are synchronized so need to change inactive window

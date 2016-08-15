@@ -6,13 +6,13 @@
       The copyright to this program is held by it's author.
 -->
 <resources>
-  <string name="app_name">And Bible</string>
+  <string name="app_name">Embedded Bible</string>
   <!-- Startup & Help -->
   <string name="splash_top_text">\"I reče Bog: \'Neka bude svjetlost\", i bi svjetlost. \" Knjiga Postanka 1:03</string>
   <string name="help_text">Pritisnite MENU gumb za popis mogućih radnji.\n\nKrenite na sljedeće ili prethodno poglavlje koristeći track-ball, D-pad ili povlačenjem prsta preko ekrana.</string>
   <string name="help_text_long">Navigacija\nKrenite na sljedeće ili prethodno poglavlje koristeći track-ball, D-pad ili povlačeći prst preko ekrana. \n\nPritisnite MENU gumb za popis radnji \n\nZa preuzimanje dodatnih dokumenata pritisnite Menu/Još/Preuzimanje dokumenata \n\nLong press on the bible view to open the context menu for actions affecting the current verse. \nLong press on a document in the document selector to delete it or view information. \n\nIzgovor\nPritisnite izgovor kako bi pristupili dijaloškom okviru za pokretanje ili zaustavljanje izgovora \n\nOznake\nOznake mogu biti dodane kroz izbornik retka. Kroz glavni izbornik možete pristupiti Upravitelju oznaka. Kroz izbornik Upravitelja oznaka, oznake se mogu grupirati s Nazivima.</string>
   <string name="version_text">Verzija %s</string>
-  <string name="no_sdcard_error">Molimo umetnite SD karticu i ponovno pokrenite And Bible.</string>
+  <string name="no_sdcard_error">Molimo umetnite SD karticu i ponovno pokrenite Embedded Bible.</string>
   <!-- main menu -->
   <string name="chooseBook">Dokument</string>
   <string name="selectPassage">Odlomak</string>
@@ -102,7 +102,7 @@
   <string name="notes">Fusnote i reference</string>
   <string name="copy">Kopirajte trenutni redak</string>
   <string name="share_verse">Dijeli trenutni redak...</string>
-  <string name="share_verse_subject">Redak iz Biblije podijeljen je s Vama koristeći And Bible</string>
+  <string name="share_verse_subject">Redak iz Biblije podijeljen je s Vama koristeći Embedded Bible</string>
   <!-- Bookmarks -->
   <string name="bookmarks">Oznake</string>
   <string name="add_bookmark">Dodaj oznaku</string>

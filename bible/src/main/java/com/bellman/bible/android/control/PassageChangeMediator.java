@@ -1,6 +1,16 @@
 package com.bellman.bible.android.control;
 
 import android.util.Log;
+
+import com.bellman.bible.android.control.event.passage.BeforeCurrentPageChangeEvent;
+import com.bellman.bible.android.control.event.passage.CurrentVerseChangedEvent;
+import com.bellman.bible.android.control.event.passage.PassageChangeStartedEvent;
+import com.bellman.bible.android.control.event.passage.PassageChangedEvent;
+import com.bellman.bible.android.control.event.passage.PreBeforeCurrentPageChangeEvent;
+import com.bellman.bible.service.device.ScreenSettings;
+
+import de.greenrobot.event.EventBus;
+
 /** when a bible passage is changed there are lots o things to update and they should be done in a helpful order
  * This helps to control screen updates after a passage change
  * 
@@ -10,13 +20,10 @@ import android.util.Log;
  */
 public class PassageChangeMediator {
 
-	private BibleContentManager mBibleContentManager;
-
-	private boolean isPageChanging = false;
-
 	private static final String TAG = "PassageChangeMediator";
-	
 	private static final PassageChangeMediator singleton = new PassageChangeMediator();
+	private BibleContentManager mBibleContentManager;
+	private boolean isPageChanging = false;
 	
 	public static final PassageChangeMediator getInstance() {
 		return singleton;
@@ -27,8 +34,8 @@ public class PassageChangeMediator {
 	public void onBeforeCurrentPageChanged() {
 		isPageChanging = true;
 
-//		EventBus.getDefault().post(new PreBeforeCurrentPageChangeEvent());
-//		EventBus.getDefault().post(new BeforeCurrentPageChangeEvent());
+		EventBus.getDefault().post(new PreBeforeCurrentPageChangeEvent());
+		EventBus.getDefault().post(new BeforeCurrentPageChangeEvent());
 	}
 	
 	/** the document has changed so ask the view to refresh itself
@@ -54,7 +61,7 @@ public class PassageChangeMediator {
 	/** this is triggered on scroll
 	 */
 	public void onCurrentVerseChanged() {
-//		EventBus.getDefault().post(new CurrentVerseChangedEvent());
+		EventBus.getDefault().post(new CurrentVerseChangedEvent());
 	}
 
 	/** The thread which fetches the new page html has started
@@ -63,14 +70,14 @@ public class PassageChangeMediator {
 		isPageChanging = true;
 
 		// only update occasionally otherwise black-on-black or w-on-w may occur in variable light conditions
-//		ScreenSettings.isNightModeChanged();
-//
-//		EventBus.getDefault().post(new PassageChangeStartedEvent());
+		ScreenSettings.isNightModeChanged();
+
+		EventBus.getDefault().post(new PassageChangeStartedEvent());
 	}
 	/** finished fetching html so should hide hourglass
 	 */
 	public void contentChangeFinished() {
-//		EventBus.getDefault().post(new PassageChangedEvent());
+		EventBus.getDefault().post(new PassageChangedEvent());
 
 		isPageChanging = false;
 	}

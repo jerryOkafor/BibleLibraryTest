@@ -20,19 +20,15 @@ import org.crosswire.jsword.versification.Versification;
  */
 public class Note {
 
-	public enum NoteType {TYPE_GENERAL, TYPE_REFERENCE};
-	
+	public static final String SUMMARY = "summary";
+	public static final String DETAIL = "detail";
+	private static final Logger log = new Logger("Note");
 	private int verseNo;
 	private String noteRef;
 	private String noteText;
 	private NoteType noteType;
 	private String osisRef;
 	private Versification v11n;
-
-	public static final String SUMMARY = "summary";
-	public static final String DETAIL = "detail";
-	
-	private static final Logger log = new Logger("Note");
 	
 	public Note(int verseNo, String noteRef, String noteText, NoteType noteType, String osisRef, Versification v11n) {
 		super();
@@ -61,12 +57,12 @@ public class Note {
 		}
 		return retval;
 	}
-	
+
 	public boolean isNavigable() {
 		return noteType.equals(NoteType.TYPE_REFERENCE);
 	}
-	
-	/** Jump to the verse in the ref 
+
+	/** Jump to the verse in the ref
 	 * if the osisRef is available then use that becsue sometimes the noteText itself misses out the book o fthe bible
 	 */
 	public void navigateTo() {
@@ -90,9 +86,11 @@ public class Note {
 	public int getVerseNo() {
 		return verseNo;
 	}
+
 	public String getNoteRef() {
 		return noteRef;
 	}
+
 	/**
 	 * If note is reference specific then return the reference otherwise return the text within the note
 	 */
@@ -110,7 +108,7 @@ public class Note {
 		}
 		return text;
 	}
-	
+
 	private Key getReferenceKey() {
 		Key key=null;
 		try {
@@ -123,4 +121,6 @@ public class Note {
 		}
 		return key;
 	}
+
+	public enum NoteType {TYPE_GENERAL, TYPE_REFERENCE}
 }

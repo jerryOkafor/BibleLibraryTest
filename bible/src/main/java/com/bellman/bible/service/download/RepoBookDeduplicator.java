@@ -1,6 +1,5 @@
 package com.bellman.bible.service.download;
 
-
 import com.bellman.bible.service.common.Logger;
 
 import org.crosswire.common.util.Version;

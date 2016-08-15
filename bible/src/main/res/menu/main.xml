@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The main menu accessed via Menu key
+ 
+ @author Martin Denham [mjdenham at gmail dot com]
+ @see gnu.lgpl.License for license details.<br>
+      The copyright to this program is held by it's author.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appcompat="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bookmarksButton"
+        android:icon="@drawable/ic_collections_bookmark_24dp"
+        android:title="@string/bookmarks"
+        appcompat:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/mynotesButton"
+        android:icon="@drawable/ic_pen_24dp"
+        android:title="@string/mynotes" />
+
+    <item
+        android:id="@+id/searchButton"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/search"
+        appcompat:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/windowSubMenu"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="@string/window">
+        <menu>
+            <!-- window_popup_menu.xml is programatically included here -->
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/dailyReadingPlanButton"
+        android:icon="@android:drawable/ic_menu_month"
+        android:title="@string/rdg_plan_title" />
+
+    <item
+        android:id="@+id/speakButton"
+        android:icon="@drawable/ic_hearing_24dp"
+        android:title="@string/speak" />
+
+    <item
+        android:id="@+id/historyButton"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="@string/history" />
+
+    <item
+        android:id="@+id/adminSubMenu"
+        android:title="@string/administration">
+
+        <menu>
+
+            <item
+                android:id="@+id/downloadButton"
+                android:icon="@drawable/ic_action_download"
+                android:title="@string/download" />
+
+            <item
+                android:id="@+id/installZipButton"
+                android:icon="@drawable/ic_menu_archive"
+                android:title="@string/install_zip" />
+
+            <item
+                android:id="@+id/settingsButton"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="@string/settings" />
+
+            <item
+                android:id="@+id/backupMainMenu"
+                android:icon="@android:drawable/ic_menu_save"
+                android:title="@string/backup">
+                <menu>
+                    <item
+                        android:id="@+id/backup"
+                        android:icon="@android:drawable/ic_menu_save"
+                        android:title="@string/backup" />
+                    <item
+                        android:id="@+id/restore"
+                        android:icon="@android:drawable/ic_menu_set_as"
+                        android:title="@string/restore" />
+                </menu>
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/helpButton"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/help" />
+
+</menu>

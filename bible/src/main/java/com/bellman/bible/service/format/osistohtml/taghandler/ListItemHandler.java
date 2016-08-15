@@ -1,6 +1,5 @@
 package com.bellman.bible.service.format.osistohtml.taghandler;
 
-
 import com.bellman.bible.service.format.osistohtml.HtmlTextWriter;
 
 import org.crosswire.jsword.book.OSISUtil;
