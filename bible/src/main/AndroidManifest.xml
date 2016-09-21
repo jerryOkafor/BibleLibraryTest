@@ -22,12 +22,11 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
-        android:theme="@style/BibleAppThemeDay">
+        android:label="@string/app_name">
 
         <!-- deprecated but necessary to prevent old shortcut breaking -->
         <activity
-            android:name=".StartupActivity"
+            android:name="com.bellman.bible.android.view.activity.StartupActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:label="@string/app_name">
 

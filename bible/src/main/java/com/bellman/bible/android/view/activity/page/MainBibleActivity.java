@@ -62,7 +62,6 @@ public class MainBibleActivity extends CustomTitlebarActivityBase implements Ver
     // swipe fails on older versions of Android (2.2, 2.3, but not 3.0+) if event not passed to parent - don't know why
     // scroll occurs on later versions after double-tap maximize
     private boolean alwaysDispatchTouchEventToSuper = !CommonUtils.isHoneycombPlus();
-    private Intent mIntent;
 
     public MainBibleActivity() {
         super(bibleActionBarManager, R.menu.main);
@@ -76,7 +75,7 @@ public class MainBibleActivity extends CustomTitlebarActivityBase implements Ver
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "Creating MainBibleActivity");
         super.onCreate(savedInstanceState, true);
-        mIntent = getIntent();
+        Intent mIntent = getIntent();
         setContentView(R.layout.main_bible_view);
 
         ControlFactory.getInstance().provide(this);

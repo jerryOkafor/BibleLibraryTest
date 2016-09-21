@@ -4,7 +4,7 @@ apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         minSdkVersion 16
@@ -28,24 +28,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile files('libs/jsword.jar')
     compile files('libs/mmseg4j-all-1.8.4.jar')
 
     compile 'org.jdom:jdom2:2.0.6'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.3'
 
-    compile 'org.apache.lucene:lucene-core:3.0.3'
+    //lucene
+    compile 'org.apache.lucene:lucene-core:3.6.2'
     compile 'org.apache.lucene:lucene-snowball:3.0.3'
     compile 'org.apache.lucene:lucene-analyzers:3.0.3'
 
-
-    compile 'org.apache.commons:commons-compress:1.7'
+    //apache commons
+    compile 'org.apache.commons:commons-compress:1.12'
     compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'com.android.support:appcompat-v7:24.1.1'
+
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
     compile 'de.psdev.slf4j-android-logger:slf4j-android-logger:1.0.4'
-    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'de.greenrobot:eventbus:2.4.0'
     testCompile 'junit:junit:4.12'
 }
@@ -56,7 +58,7 @@ dependencies {
 def siteUrl = 'https://github.com/jerryhanks/BibleLibraryTest'      // Homepage URL of the library
 def gitUrl = 'https://github.com/jerryhanks/BibleLibraryTest.git'   // Git repository URL
 group = "com.bellman"   // Maven Group ID for the artifact
-version = "1.0.0"
+version = "1.2.1"
 
 
 install {
@@ -136,7 +138,8 @@ bintray {
         licenses = ["Apache-2.0"]
         publish = true
         version {
-            desc = "A simple Bible Library"
+            desc = "A simple Bible Library that any one can integrate into their app and make use of it, this Libaray is base " +
+                    "on the original And-Bible"
             // Optional. The passphrase for GPG signing'
             // gpg {
             //    sign = true //Determines whether to GPG sign the files. The default is false

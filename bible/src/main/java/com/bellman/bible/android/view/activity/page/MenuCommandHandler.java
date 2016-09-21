@@ -8,9 +8,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.bellman.bible.android.activity.R;
-import com.bellman.bible.android.activity.StartupActivity;
 import com.bellman.bible.android.control.ControlFactory;
 import com.bellman.bible.android.control.download.DownloadControl;
+import com.bellman.bible.android.view.activity.StartupActivity;
 import com.bellman.bible.android.view.activity.base.ActivityBase;
 import com.bellman.bible.android.view.activity.bookmark.Bookmarks;
 import com.bellman.bible.android.view.activity.download.Download;

@@ -140,19 +140,5 @@ public class Window {
 
 	public enum WindowOperation {
 		MAXIMISE, MINIMISE, RESTORE, CLOSE
-	}	public enum WindowOperation {
-		MAXIMISE, MINIMISE, RESTORE, CLOSE
-	}public enum WindowOperation {
-		MAXIMISE, MINIMISE, RESTORE, CLOSE
-	}@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Window other = (Window) obj;
-		return screenNo == other.screenNo;
 	}
 }

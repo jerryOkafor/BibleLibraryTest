@@ -2,6 +2,8 @@ package com.bellman.bible.util;
 
 import android.os.Environment;
 
+import com.bellman.bible.android.Bible;
+
 import java.io.File;
 
 /**
@@ -13,12 +15,12 @@ import java.io.File;
  */
 public class SharedConstants {
 
-    public static final String PACKAGE_NAME = "com.bellman.biblelibrarytest";
+    public static final String PACKAGE_NAME = Bible.getInstance().getApplication().getPackageName();
     /**
      * Forms storage path
      */
     public static final File MODULE_DIR = getModuleDir();
-    public static final String FRONTEND_NAME = "and-bible";
+    public static final String FRONTEND_NAME = "bible";
     public static final File FRONTEND_DATA_DIR = new File(MODULE_DIR, FRONTEND_NAME);
     public static final String READINGPLAN_DIR_NAME = "readingplan";
     public static final int APPLICATION_THEME = android.R.style.Theme_Light;
@@ -28,18 +30,18 @@ public class SharedConstants {
     // insist on 50 free megs before downloading
     public static final long REQUIRED_MEGS_FOR_DOWNLOADS = 50;
     public static final int NO_VALUE = -1;
+    public static final File MANUAL_INSTALL_DIR = getManualInstallDir();
+    private static final String CSS_SUBDIR_NAME = "css";
+    public static final File MANUAL_CSS_DIR = new File(MANUAL_INSTALL_DIR, CSS_SUBDIR_NAME);
     public static final File MANUAL_READINGPLAN_DIR = new File(MANUAL_INSTALL_DIR, READINGPLAN_DIR_NAME);
     public static final File MANUAL_CSS_STYLESHEET = new File(MANUAL_CSS_DIR, DEFAULT_STYLESHEET);
     public static final File MANUAL_CSS_NIGHT_MODE_STYLESHEET = new File(MANUAL_CSS_DIR, NIGHT_MODE_STYLESHEET);
     private static final String MANUAL_INSTALL_SUBDIR = "jsword";
-    public static final File MANUAL_INSTALL_DIR = getManualInstallDir();
     private static final String FONT_SUBDIR_NAME = "fonts";
     public static final File FONT_DIR = new File(MODULE_DIR, FONT_SUBDIR_NAME);
     public static final File MANUAL_FONT_DIR = new File(MANUAL_INSTALL_DIR, FONT_SUBDIR_NAME);
-    private static final String BACKUP_SUBDIR_NAME = "andbible_backup";
+    private static final String BACKUP_SUBDIR_NAME = "bible_backup";
     public static final File BACKUP_DIR = getBackupDir();
-    private static final String CSS_SUBDIR_NAME = "css";
-    public static final File MANUAL_CSS_DIR = new File(MANUAL_INSTALL_DIR, CSS_SUBDIR_NAME);
 
     /**
      * a directory that will be deleted when the application is uninstalled (only on Android 2.2+)

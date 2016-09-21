@@ -104,7 +104,7 @@ public class ControlFactory {
 		emailer = new EmailerImpl();
 		errorReportControl = new ErrorReportControl(emailer);
 
-		bookmarkControl = new BookmarkControl(CurrentActivityHolder.getInstance().getCurrentActivity().getApplicationContext(), resourceProvider);
+		bookmarkControl = new BookmarkControl(CurrentActivityHolder.getInstance().getApplication(), resourceProvider);
 
 		// inject dependencies
 		readingPlanControl.setSpeakControl(this.speakControl);

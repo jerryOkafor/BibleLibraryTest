@@ -23,6 +23,7 @@ import com.bellman.bible.android.view.activity.download.Download;
 import com.bellman.bible.android.view.activity.installzip.InstallZip;
 import com.bellman.bible.android.view.activity.page.MainBibleActivity;
 import com.bellman.bible.service.common.CommonUtils;
+import com.bellman.bible.service.device.ProgressNotificationManager;
 import com.bellman.bible.service.sword.SwordDocumentFacade;
 import com.bellman.bible.util.SharedConstants;
 
@@ -41,8 +42,6 @@ public class StartupActivity extends CustomTitlebarActivityBase {
     public static final String EXTRA_BIBLE_URI = "extra_verse_url";
     private static final String TAG = "StartupActivity";
     private static final int DOWNLOAD_DOCUMENT_REQUEST = 2;
-    private ProgressBar initProgress;
-    private LinearLayout pHolder;
     private Intent mIntent;
 
     /**
@@ -51,24 +50,23 @@ public class StartupActivity extends CustomTitlebarActivityBase {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.startup_view);
+//        setContentView(R.layout.startup_view);
+
+
         mIntent = getIntent();
         // do not show an actionBar/title on the splash screen
         getSupportActionBar().hide();
 
-        initProgress = (ProgressBar) findViewById(R.id.init_progress);
-        initProgress.setMax(5);
-
         //get the linear layout
-        pHolder = (LinearLayout) findViewById(R.id.progress_holder);
+//        pHolder = (LinearLayout) findViewById(R.id.progress_holder);
 
-        TextView versionTextView = (TextView) findViewById(R.id.versionText);
-        String versionMsg = CurrentActivityHolder.getInstance().getApplication().getString(R.string.version_text, CommonUtils.getApplicationVersionName());
-        versionTextView.setText(versionMsg);
+//        TextView versionTextView = (TextView) findViewById(R.id.versionText);
+//        String versionMsg = CurrentActivityHolder.getInstance().getApplication().getString(R.string.version_text, CommonUtils.getApplicationVersionName());
+//        versionTextView.setText(versionMsg);
 
         //See if any errors occurred during app initialisation, especially upgrade tasks
         // TODO: 8/15/2016 Remember changes made here
-        int abortErrorMsgId = 0;//BibleApplication.getApplication().getErrorDuringStartup();
+        int abortErrorMsgId = 0;//BibleApplication.getApplication(.getErrorDuringStartup();
 
         // check for SD card 
         // it would be great to check in the Application but how to show dialog from Application?
@@ -92,42 +90,11 @@ public class StartupActivity extends CustomTitlebarActivityBase {
         // allow call back and continuation in the ui thread after JSword has been initialised
         final Handler uiHandler = new Handler();
         final Runnable uiThreadRunnable = new Runnable() {
+
+
             @Override
             public void run() {
-                try {
-
-                    new CountDownTimer(5000, 1000) {
-                        @Override
-                        public void onTick(long l) {
-
-                            int p = (int) (l / 1000);
-                            if (p == 5)
-                                initProgress.setProgress(1);
-                            else if (p == 4)
-                                initProgress.setProgress(2);
-                            else if (p == 3)
-                                initProgress.setProgress(3);
-                            else if (p == 2)
-                                initProgress.setProgress(4);
-                            else if (p == 1) {
-                                initProgress.setProgress(5);
-                            }
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            pHolder.setVisibility(View.INVISIBLE);
-                            postBasicInitialisationControl();
-
-                        }
-                    }.start();
-                    //show the splash scree for 10sec
-//                    CommonUtils.pause(10); //pause 10 seconds
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                postBasicInitialisationControl();
             }
         };
 
@@ -214,8 +181,8 @@ public class StartupActivity extends CustomTitlebarActivityBase {
         Log.i(TAG, "Going to MainBibleActivity");
         Intent handlerIntent = new Intent(this, MainBibleActivity.class);
 
-        Log.d(TAG, "Uri: " + mIntent.getData().toString());
         if (mIntent.getData() != null) {
+            Log.d(TAG, "Uri: " + mIntent.getData().toString());
             handlerIntent.putExtra(EXTRA_BIBLE_URI, mIntent.getData().toString());
 
         }

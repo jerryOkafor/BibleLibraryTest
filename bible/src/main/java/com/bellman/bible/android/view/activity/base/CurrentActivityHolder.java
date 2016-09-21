@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bellman.bible.android.Bible;
 import com.bellman.bible.android.control.event.apptobackground.AppToBackgroundEvent;
 import com.bellman.bible.android.control.event.apptobackground.AppToBackgroundEvent.Position;
 
@@ -75,11 +76,11 @@ public class CurrentActivityHolder {
 
 
 	public Context getContext() {
-		return this.getCurrentActivity().getApplicationContext();
+		return Bible.getInstance().getApplication();
 	}
 
 	public Application getApplication() {
-		return this.getCurrentActivity().getApplication();
+		return Bible.getInstance().getApplication();
 	}
 
 	public SharedPreferences getAppStateSharedPreferences() {
