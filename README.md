@@ -26,7 +26,7 @@ public class App extends Application {
   testTv.setMovementMethod(LinkMovementMethod.getInstance());
 ````
 
-Format: ![Alt Text](url)
+Format: ![Alt Text](https://github.com/jerryhanks/BibleLibraryTest/blob/master/screenshots/Screenshot_2.png)
 
 #Want to Contribut or Make Bible Api better
 Fork the repo and create a pull request of your latest changes so that we can merge and move on.
